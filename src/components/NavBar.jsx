@@ -3,6 +3,7 @@ import { Network, Alchemy } from "alchemy-sdk";
 import { Link } from "react-router-dom";
 import { TopBar } from "../components";
 import { logoEtherscanDark, logoEtherscanLight } from "../assets";
+// import { getETHPrice } from "../alchemy-core";
 
 import { SlMagnifier } from "react-icons/sl";
 
@@ -51,7 +52,7 @@ const NavBar = () => {
         </Link>
         <div className="flex items-center text-center text-lg">
           <p className="font-semibold">Current Block Number:</p>
-          <p className="ml-2 text-active underline">{blockNumber}</p>
+          <p className="ml-2 text-activeLight underline">{blockNumber}</p>
         </div>
       </div>
       <div className="my-0.5 border-[0.5px] border-secondaryBgLight shadow-lg shadow-gray-100/80 dark:border-secondaryBgDark" />

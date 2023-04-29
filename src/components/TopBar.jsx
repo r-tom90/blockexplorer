@@ -2,6 +2,7 @@ import { Network, Alchemy, Utils } from "alchemy-sdk";
 import { useState, useEffect } from "react";
 import { ToggleTheme, EthToggleButton, SearchBar } from "./index";
 import { GiGasPump } from "react-icons/gi";
+// import { getETHPrice } from "../alchemy-core";
 
 /* Refer to the README doc for more information about using API keys in client-side code. You should never do this in production level code. */
 const settings = {
@@ -13,6 +14,8 @@ const settings = {
 
 // ? You can read more about the packages here: https://docs.alchemy.com/reference/alchemy-sdk-api-surface-overview#api-surface
 const alchemy = new Alchemy(settings);
+
+// import { alchemy } from "../configs/alchemy.config.js";
 
 // Above NavBar
 const TopBar = () => {
@@ -34,11 +37,14 @@ const TopBar = () => {
   }, []);
 
   return (
-    <div className="mx-5 hidden justify-between py-3 sm:flex">
+    <div
+      className="mx-5 hidden justify-between py-0.5 sm:flex"
+      // style={{ position: "fixed", top: 0, left: 0, right: 0 }}
+    >
       <div className="flex h-auto w-32 items-center justify-around text-xs font-medium">
         <GiGasPump className="h-auto w-4 fill-primaryTextLight dark:fill-primaryTextDark " />
         <p>Gas:</p>
-        <p className="text-active">{gas} Gwei</p>
+        <p className="text-activeLight">{gas} Gwei</p>
       </div>
 
       <div className="flex">

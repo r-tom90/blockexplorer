@@ -9,11 +9,11 @@ const EthToggleButton = () => {
       >
         <img
           src={ethPurple}
-          className="block h-4 w-auto fill-active duration-1000 dark:hidden"
+          className="block h-4 w-auto fill-activeLight duration-1000 dark:hidden"
         />
         <img
           src={ethColored}
-          className="hidden h-4 w-auto fill-active duration-1000 dark:block"
+          className="hidden h-4 w-auto fill-activeLight duration-1000 dark:block"
         />
       </button>
     </>

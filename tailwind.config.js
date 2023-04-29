@@ -5,15 +5,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryBgLight: "#f9f9f9",
-        primaryTextLight: "#242424",
-        primaryTextDark: "#f9f9f9",
-        primaryBgDark: "#242424",
+        primaryBgLight: "#f8f9fa",
+        primaryTextLight: "#151515",
+        primaryTextDark: "#f8f9fa",
+        primaryBgDark: "#151515",
         secondaryBgLight: "#ddd",
         secondaryBgDark: "#343434",
         tertiaryBgLight: "#eee",
         tertiaryBgDark: "#454545",
-        active: "#535bf2",
+        activeLight: "#0784c3",
+        activeDark: "#6ab5db",
       },
     },
   },

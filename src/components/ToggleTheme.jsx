@@ -36,14 +36,14 @@ const ToggleTheme = () => {
           className="group cursor-pointer rounded-lg border border-secondaryBgDark bg-primaryBgDark p-2.5"
           onClick={handleThemeSwitch}
         >
-          <BsSun className="h-auto w-4 fill-active duration-1000" />
+          <BsSun className="h-auto w-4 fill-activeLight duration-1000" />
         </button>
       ) : (
         <button
           className="group cursor-pointer rounded-lg border border-secondaryBgLight bg-primaryBgLight p-2.5"
           onClick={handleThemeSwitch}
         >
-          <BsMoon className="h-auto w-4 fill-active duration-1000" />
+          <BsMoon className="h-auto w-4 fill-activeLight duration-1000" />
         </button>
       )}
     </>

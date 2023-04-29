@@ -12,20 +12,20 @@ const BlockResults = ({ results }) => {
         <div key={result.hash}>
           <p>
             Block Number:
-            <span className="ml-1 text-active">{result.number}</span>
+            <span className="ml-1 text-activeLight">{result.number}</span>
           </p>
           <p>
-            Tx Hash: <span className="text-active">{result.hash}</span>
+            Tx Hash: <span className="text-activeLight">{result.hash}</span>
           </p>
           <p>
             Timestamp:
-            <span className="ml-1 text-active">
+            <span className="ml-1 text-activeLight">
               {moment(result.timestamp * 1000).fromNow()}
             </span>
           </p>
           <p>
             Gas Used:
-            <span className="ml-1 text-active">
+            <span className="ml-1 text-activeLight">
               {Utils.formatUnits(result.gasUsed._hex, "gwei")} Gwei
             </span>
           </p>
