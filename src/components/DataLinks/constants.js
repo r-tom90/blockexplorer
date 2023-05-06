@@ -23,3 +23,19 @@ export const ProductsAndServices = {
   Blockscan: "/blockscan",
   "Blockscan Chat": "/blockscan-chat",
 };
+
+export const NavBarLinks = {
+  Home: "/",
+  Blockchain: "blockchain",
+  Tokens: "tokens",
+  NFTs: "nfts",
+  Resources: "resources",
+  Developers: "developers",
+  More: "more",
+  // NestedExample: [
+  //   { title: "Home", path: "/" },
+  //   { title: "Blockchain", path: "/blockchain" },
+  //   { title: "Tokens", path: "/tokens" },
+  //   { title: "NFTs", path: "/nfts" },
+  // ]
+};

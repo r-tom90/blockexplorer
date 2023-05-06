@@ -1,9 +1,9 @@
 // import { ethers } from "ethers";
 
-// const provider = new ethers.providers.AlchemyProvider(
-//   "mainnet",
-//   import.meta.env.VITE_ALCHEMY_API_KEY
-// );
+// const provider = new ethers.providers.AlchemyProvider([
+//   "homestead",
+//   [import.meta.env.VITE_ALCHEMY_API_KEY],
+// ]);
 
 // const contractAddress = "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419"; // Chainlink oracle address
 // const abi = [

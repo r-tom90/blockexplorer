@@ -3,7 +3,7 @@
 import { BlockIcon } from "./block-icon";
 import { EthereumIcon } from "./ethereum-icon";
 import { EtherscanIcon } from "./etherscan-icon";
-import { GlobeIcon } from "./globe-icon";
+import { GlobeIconLight, GlobeIconDark } from "./globe-icon";
 import { MeterIcon } from "./meter-icon";
 import { PaperIcon } from "./paper-icon";
 import { SearchIcon } from "./search-icon";
@@ -13,7 +13,8 @@ export {
   BlockIcon,
   EthereumIcon,
   EtherscanIcon,
-  GlobeIcon,
+  GlobeIconLight,
+  GlobeIconDark,
   MeterIcon,
   PaperIcon,
   SearchIcon,

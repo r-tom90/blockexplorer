@@ -2,7 +2,7 @@ export const MeterIcon = () => {
   return (
     <>
       <svg
-        fill="#000000"
+        fill="#bbbbbb"
         width="30"
         height="30"
         viewBox="0 0 32 32"

@@ -2,6 +2,7 @@ import { getBlockInfo } from "./get-block-info";
 import { getBlockTransactions } from "./get-block-transactions";
 // import { getETHPrice } from "./get-eth-price";
 import { getFinalizedAndSafeBlock } from "./get-finalized-and-safe-block";
+import { getGasPrice } from "./get-gas-price";
 import { getHashType } from "./get-hash-type";
 import { getLatestBlocks } from "./get-latest-blocks";
 import { getLatestTransactions } from "./get-latest-transactions";
@@ -13,6 +14,7 @@ export {
   getBlockTransactions,
   // getETHPrice,
   getFinalizedAndSafeBlock,
+  getGasPrice,
   getHashType,
   getLatestBlocks,
   getLatestTransactions,
