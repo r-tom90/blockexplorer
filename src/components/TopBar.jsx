@@ -1,6 +1,6 @@
 import { Utils } from "alchemy-sdk";
 import { useState, useEffect } from "react";
-import { ToggleTheme, EthToggleButton, SearchBar } from "./index";
+import { ToggleTheme, EthToggleButton } from "./index";
 import { GiGasPump } from "react-icons/gi";
 import { alchemy } from "../configs/alchemy.config.js";
 import { getGasPrice } from "../alchemy-core";
@@ -24,10 +24,10 @@ const TopBar = () => {
 
   return (
     <div
-      className="mx-5 hidden justify-between py-0.5 sm:flex"
+      className="mx-5 flex justify-between py-0.5"
       // style={{ position: "fixed", top: 0, left: 0, right: 0 }}
     >
-      <div className="flex">
+      <div className="hidden sm:flex">
         <div className="flex h-auto w-24 items-center justify-around text-xs font-medium">
           <p>ETH Price:</p>
           <p className="text-activeLight">

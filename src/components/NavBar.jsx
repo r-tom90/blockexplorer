@@ -26,7 +26,7 @@ const NavBar = () => {
             />
           </Link>
         </section>
-        <section className="flex w-auto lg:ml-20">
+        <section className="hidden w-auto sm:flex lg:ml-20">
           <div className="w-full px-0">
             <ul className="flex flex-row">
               {Object.keys(NavBarLinks).map((title) => (

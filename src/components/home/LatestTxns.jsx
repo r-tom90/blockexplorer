@@ -4,11 +4,11 @@ import { PageLink } from "../PageLink";
 
 const TxnInfo = ({ to, from, transactionHash, agoTimestamp }) => {
   return (
-    <div className="py-5 border-b min-h-[100px]">
-      <div className="flex flex-wrap md:flex-nowrap items-center gap-3 md:gap-10">
-        <div className="flex items-center gap-2 md:inline-block w-full md:w-[40%] pl-10">
+    <div className="min-h-[100px] border-b py-5">
+      <div className="flex flex-wrap items-center gap-3 md:flex-nowrap md:gap-10">
+        <div className="flex w-full items-center gap-2 pl-10 md:inline-block md:w-[40%]">
           <div className="flex items-center gap-2">
-            <span className="bg-gray-100 p-3 rounded-md">
+            <span className="rounded-md bg-gray-100 p-3">
               <PaperIcon />
             </span>
             <div>
@@ -19,7 +19,7 @@ const TxnInfo = ({ to, from, transactionHash, agoTimestamp }) => {
             </div>
           </div>
         </div>
-        <div className="w-full md:w-[60%] pl-10 md:pl-0">
+        <div className="w-full pl-10 md:w-[60%] md:pl-0">
           <h4>
             From&nbsp;
             <PageLink href={`/account/${from}`}>
@@ -38,10 +38,10 @@ const TxnInfo = ({ to, from, transactionHash, agoTimestamp }) => {
 
 const LatestTxns = ({ latestTransactions = [] }) => {
   return (
-    <section className="bg-white rounded-lg drop-shadow-sm border border-stone-300 overflow-hidden">
+    <section className="overflow-hidden rounded-lg border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
       <div className="pt-3">
         <div className="border-b">
-          <div className="px-5 mb-2">
+          <div className="mb-2 px-5">
             <h2 className="font-medium">Latest Transactions</h2>
           </div>
         </div>
@@ -52,10 +52,10 @@ const LatestTxns = ({ latestTransactions = [] }) => {
           ))}
         </div>
 
-        <div className="bg-slate-50">
+        <div className="bg-color to change">
           <div className="px-5">
             <div className="flex justify-center py-2">
-              <button className="uppercase text-[0.95rem] text-gray-100">
+              <button className="text-[0.95rem] uppercase">
                 View all transactions
               </button>
             </div>

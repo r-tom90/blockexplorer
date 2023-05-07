@@ -3,20 +3,22 @@
 import { BlockIcon } from "./block-icon";
 import { EthereumIcon } from "./ethereum-icon";
 import { EtherscanIcon } from "./etherscan-icon";
-import { GlobeIconLight, GlobeIconDark } from "./globe-icon";
-import { MeterIcon } from "./meter-icon";
+import { GlobeIcon, GlobeIconDark } from "./globe-icon";
+import { MeterIcon, MeterIconDark } from "./meter-icon";
 import { PaperIcon } from "./paper-icon";
 import { SearchIcon } from "./search-icon";
-import { ServerIcon } from "./server-icon";
+import { ServerIcon, ServerIconDark } from "./server-icon";
 
 export {
   BlockIcon,
   EthereumIcon,
   EtherscanIcon,
-  GlobeIconLight,
+  GlobeIcon,
   GlobeIconDark,
   MeterIcon,
+  MeterIconDark,
   PaperIcon,
   SearchIcon,
   ServerIcon,
+  ServerIconDark,
 };

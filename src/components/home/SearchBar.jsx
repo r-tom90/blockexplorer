@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { getHashType } from "../../alchemy-core";
+import { ethers } from "ethers";
 import { SlMagnifier } from "react-icons/sl";
 import { AiOutlineEnter } from "react-icons/ai";
+import { useRoutes } from "react-router-dom";
+import { useState } from "react";
 
 const SearchBar = ({ onSearch }) => {
   const [searchText, setSearchText] = useState("");
@@ -18,7 +21,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="relative flex">
+    <div className="relative m-auto hidden pt-2 sm:flex">
       <input
         type="text"
         value={searchText}

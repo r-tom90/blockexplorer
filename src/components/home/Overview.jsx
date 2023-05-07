@@ -5,10 +5,12 @@ import {
 } from "../../alchemy-core";
 import {
   EthereumIcon,
-  GlobeIconLight,
+  GlobeIcon,
   GlobeIconDark,
   MeterIcon,
+  MeterIconDark,
   ServerIcon,
+  ServerIconDark,
 } from "../../icons";
 import { PageLink } from "../PageLink";
 import { useEffect, useState } from "react";
@@ -63,9 +65,9 @@ const Overview = ({ ethPrice }) => {
   return (
     <section>
       <div className="m-auto hidden w-full px-5 pt-10 sm:block">
-        <div className="rounded-lg border shadow-lg drop-shadow-sm dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
+        <div className="rounded-lg border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
           <div className="px-5 py-3">
-            <div className="grid w-[200px] sm:w-[550px] sm:grid-cols-12 md:w-[700px] lg:w-[1000px]">
+            <div className="grid  sm:grid-cols-12 ">
               <div className="col-span-6 border-r px-3 dark:border-tertiaryBgDark">
                 <div className="flex items-center gap-3 border-b py-3 dark:border-tertiaryBgDark">
                   <EthereumIcon />
@@ -78,7 +80,7 @@ const Overview = ({ ethPrice }) => {
                 </div>
                 <div className="flex items-center gap-3 py-3">
                   <div className="block dark:hidden">
-                    <GlobeIconLight />
+                    <GlobeIcon />
                   </div>
                   <div className="hidden dark:block">
                     <GlobeIconDark />
@@ -93,7 +95,12 @@ const Overview = ({ ethPrice }) => {
               </div>
               <div className="col-span-6 px-3">
                 <div className="flex items-center gap-3 border-b py-3 dark:border-tertiaryBgDark">
-                  <ServerIcon />
+                  <div className="block dark:hidden">
+                    <ServerIcon />
+                  </div>
+                  <div className="hidden dark:block">
+                    <ServerIconDark />
+                  </div>
                   <div className="flex w-full justify-between">
                     <div className="ml-1">
                       <h3 className="text-xs dark:text-transactionGray">
@@ -114,7 +121,12 @@ const Overview = ({ ethPrice }) => {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 py-3">
-                  <MeterIcon />
+                  <div className="block dark:hidden">
+                    <MeterIcon />
+                  </div>
+                  <div className="hidden dark:block">
+                    <MeterIconDark />
+                  </div>
                   <div className="flex w-full justify-between">
                     <div className="ml-1">
                       <h3 className="text-xs dark:text-transactionGray">

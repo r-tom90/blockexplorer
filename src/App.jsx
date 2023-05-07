@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar, Footer } from "./components";
-import { Home, SearchPage } from "./pages";
+import { Home } from "./pages";
 
 function App() {
   return (
@@ -9,7 +9,6 @@ function App() {
       <div className="">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </div>
       <Footer />

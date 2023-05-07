@@ -1,7 +1,7 @@
 const light = "#151515";
 const dark = "#bbbbbb";
 
-export const GlobeIconLight = () => {
+export const GlobeIcon = () => {
   return (
     <svg
       version="1.0"
