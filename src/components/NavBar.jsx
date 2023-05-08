@@ -1,10 +1,7 @@
-import { useState, useEffect } from "react";
-import { Network, Alchemy } from "alchemy-sdk";
 import { Link } from "react-router-dom";
 import { TopBar } from "../components";
 import { logoEtherscanDark, logoEtherscanLight } from "../assets";
 import { NavBarLinks } from "./DataLinks/constants";
-// import { getETHPrice } from "../alchemy-core";
 
 const NavBar = () => {
   return (

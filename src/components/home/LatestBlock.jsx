@@ -61,7 +61,7 @@ const LatestBlock = () => {
       <h3 className="m-4 text-base font-bold">Latest Blocks</h3>
       <div className="border-[0.5px] dark:border-tertiaryBgDark" />
       {latestBlocks.map((item) => (
-        <BlockCard item={item} />
+        <BlockCard key={item.number} item={item} />
       ))}
       <PageLink to={`/block/404`}>
         <h3 className="py-4 text-center text-sm font-medium uppercase text-transactionGray hover:text-activeDark">

@@ -61,7 +61,7 @@ const LatestTxns = () => {
       <h3 className="m-4 text-base font-bold">Latest Transactions</h3>
       <div className="border-[0.5px] dark:border-tertiaryBgDark" />
       {latestTransactions.map((item) => (
-        <TxCard item={item} />
+        <TxCard key={item.transactionHash} item={item} />
       ))}
       <PageLink to={`/transactions/404`}>
         <h3 className="py-4 text-center text-sm font-medium uppercase text-transactionGray hover:text-activeDark">
