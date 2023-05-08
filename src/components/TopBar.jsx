@@ -1,14 +1,23 @@
-import { Utils } from "alchemy-sdk";
 import { useState, useEffect } from "react";
 import { ToggleTheme, EthToggleButton } from "./index";
 import { GiGasPump } from "react-icons/gi";
-import { alchemy } from "../configs/alchemy.config.js";
-import { getGasPrice } from "../alchemy-core";
-// import { getETHPrice } from "../alchemy-core";
+import { getGasPrice, getETHPrice } from "../alchemy-core";
 
 // Above NavBar
 const TopBar = () => {
-  const [gas, setGas] = useState("fetching...");
+  const wait = "Fetching...";
+  const [ethPrice, setEthPrice] = useState(`${wait}`);
+  const [gas, setGas] = useState(`${wait}`);
+
+  useEffect(() => {
+    getETHPrice()
+      .then((res) => {
+        setEthPrice(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   useEffect(() => {
     const fetchGasPrice = async () => {
@@ -28,14 +37,13 @@ const TopBar = () => {
       // style={{ position: "fixed", top: 0, left: 0, right: 0 }}
     >
       <div className="hidden sm:flex">
-        <div className="flex h-auto w-24 items-center justify-around text-xs font-medium">
+        <div className="flex h-auto w-32 items-center justify-around text-xs font-medium">
           <p>ETH Price:</p>
           <p className="text-activeLight">
-            TBC
-            {/* {ethPrice} */}
+            ${parseFloat(ethPrice).toLocaleString()}
           </p>
         </div>
-        <div className="flex h-auto w-24 items-center justify-around text-xs font-medium">
+        <div className="flex h-auto w-28 items-center justify-around text-xs font-medium">
           <GiGasPump className="h-auto w-4 fill-primaryTextLight dark:fill-primaryTextDark " />
           <p>Gas:</p>
           <p className="text-activeLight">{gas} Gwei</p>
@@ -43,7 +51,6 @@ const TopBar = () => {
       </div>
 
       <div className="flex">
-        {/* <SearchBar /> */}
         <ToggleTheme />
         <EthToggleButton />
       </div>

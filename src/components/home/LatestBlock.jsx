@@ -1,71 +1,73 @@
+import { useState, useEffect } from "react";
+import { getLatestBlocks } from "../../alchemy-core";
 import { shortenAddress } from "../../utils";
-import { BlockIcon } from "../../icons";
 import { PageLink } from "../PageLink";
+import { BlockIcon } from "../../icons";
 
-const BlocksInfo = ({ miner, number, agoTimestamp, transactions }) => {
+const BlockCard = ({ item }) => {
   return (
-    <div className="min-h-[100px] border-b py-5">
-      <div className="flex flex-wrap items-center gap-3 md:flex-nowrap md:gap-10">
-        <div className="flex w-full items-center gap-2 pl-10 md:inline-block md:w-[40%]">
-          <div className="flex items-center gap-2">
-            <span className="rounded-md bg-gray-100 p-3">
-              <BlockIcon />
-            </span>
-            <div>
-              <PageLink href={`/block/${number}`}>
-                <h4>{number}</h4>
-              </PageLink>
-
-              <p className="text-sm text-[#6c757d]">{agoTimestamp} ago</p>
-            </div>
-          </div>
+    <div
+      className="mx-3 mt-2 flex flex-row items-center border-b-[0.5px] py-3 dark:border-tertiaryBgDark"
+      key={item.number}
+    >
+      <div className="mx-3 flex w-1/3 ">
+        <div className="mx-3 my-auto">
+          <BlockIcon />
         </div>
-        <div className="w-full pl-10 md:w-[60%] md:pl-0">
-          <h4>
-            Fee Recipient&nbsp;
-            <PageLink href={`/account/${miner}`}>
-              {shortenAddress(miner)}
+        <div className="flex flex-col ">
+          <h4 className="text-sm font-medium">
+            <PageLink to={`/block/${item.number}`}>{item.number}</PageLink>
+          </h4>
+          <p className="text-xs">{item.agoTimestamp} ago</p>
+        </div>
+      </div>
+      <div className="flex w-2/3 justify-center">
+        <div>
+          <div className="flex text-sm font-medium">
+            <h4 className="mr-1">Fee Recipient: </h4>
+            <PageLink to={`/address/${item.miner}`}>
+              {shortenAddress(item.miner)}
+            </PageLink>
+          </div>
+          <h4 className="text-sm font-medium">
+            <PageLink to={`/transaction/${item.transactions}`}>
+              {item.transactions.length} txns
             </PageLink>
           </h4>
-          <p>
-            <PageLink href={`/tx?block=${number}`}>
-              {transactions && transactions.length}
-              &nbsp;txns&nbsp;
-            </PageLink>
-            <span className="text-sm text-[#6c757d]">in 12 secs</span>
-          </p>
         </div>
+        {/* <div className="flex items-center">
+          <p className="text-xs">{item.gasUsedInEth} Eth</p>
+        </div> */}
       </div>
     </div>
   );
 };
 
-const LatestBlock = ({ blocksInfo = [] }) => {
+const LatestBlock = () => {
+  const [latestBlocks, setLatestBlocks] = useState([]);
+
+  useEffect(() => {
+    getLatestBlocks()
+      .then((res) => {
+        setLatestBlocks(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <section className="overflow-hidden rounded-lg border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
-      <div className="pt-3">
-        <div className="border-b">
-          <div className="mb-2 px-5">
-            <h2 className="font-medium">Latest Blocks</h2>
-          </div>
-        </div>
-
-        <div>
-          {blocksInfo.map((block) => (
-            <BlocksInfo key={block.number} {...block} />
-          ))}
-        </div>
-
-        <div className="bg-color to change">
-          <div className="px-5">
-            <div className="flex justify-center py-2">
-              <button className="text-[0.95rem] uppercase">
-                View all blocks
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section className="mx-2 overflow-hidden rounded-xl border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
+      <h3 className="m-4 text-base font-bold">Latest Blocks</h3>
+      <div className="border-[0.5px] dark:border-tertiaryBgDark" />
+      {latestBlocks.map((item) => (
+        <BlockCard item={item} />
+      ))}
+      <PageLink to={`/block/404`}>
+        <h3 className="py-4 text-center text-sm font-medium uppercase text-transactionGray hover:text-activeDark">
+          View all blocks &rarr;
+        </h3>
+      </PageLink>
     </section>
   );
 };

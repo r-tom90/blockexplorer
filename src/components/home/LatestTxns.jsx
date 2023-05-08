@@ -1,67 +1,73 @@
-import { shortenAddress, shortenAddressEnd, timeAgo } from "../../utils";
-import { PaperIcon } from "../../icons";
+import { useState, useEffect } from "react";
+import { getLatestTransactions } from "../../alchemy-core";
+import { shortenAddress } from "../../utils";
 import { PageLink } from "../PageLink";
+import { PaperIcon } from "../../icons";
 
-const TxnInfo = ({ to, from, transactionHash, agoTimestamp }) => {
+const TxCard = ({ item }) => {
   return (
-    <div className="min-h-[100px] border-b py-5">
-      <div className="flex flex-wrap items-center gap-3 md:flex-nowrap md:gap-10">
-        <div className="flex w-full items-center gap-2 pl-10 md:inline-block md:w-[40%]">
-          <div className="flex items-center gap-2">
-            <span className="rounded-md bg-gray-100 p-3">
-              <PaperIcon />
-            </span>
-            <div>
-              <PageLink href={`/tx/${transactionHash}`}>
-                <h4>{shortenAddressEnd(transactionHash)}</h4>
-              </PageLink>
-              <p className="text-sm text-[#6c757d]">{agoTimestamp} ago</p>
-            </div>
-          </div>
+    <div
+      className="mx-3 mt-2 flex flex-row items-center border-b-[0.5px] py-3 dark:border-tertiaryBgDark"
+      key={item.transactionHash}
+    >
+      <div className="mx-3 flex w-1/3 ">
+        <div className="mx-3 my-auto">
+          <PaperIcon />
         </div>
-        <div className="w-full pl-10 md:w-[60%] md:pl-0">
-          <h4>
-            From&nbsp;
-            <PageLink href={`/account/${from}`}>
-              {shortenAddress(from)}
+        <div className="flex flex-col" title={item.transactionHash}>
+          <h4 className="text-sm font-medium">
+            <PageLink to={`/tx/${item.transactionHash}`}>
+              {shortenAddress(item.transactionHash)}
             </PageLink>
           </h4>
-          <h4>
-            To&nbsp;
-            <PageLink href={`/account/${to}`}>{shortenAddress(to)}</PageLink>
-          </h4>
+          <p className="text-xs">{item.agoTimestamp} ago</p>
+        </div>
+      </div>
+      <div className="flex w-2/3 justify-center" title={item.from}>
+        <div>
+          <div className="flex text-sm font-medium">
+            <h4 className="mr-1">From: </h4>
+            <PageLink to={`/address/${item?.from}`}>
+              {shortenAddress(item.from)}
+            </PageLink>
+          </div>
+          <div className="flex text-sm font-medium" title={item.to}>
+            <p className="mr-1">To: </p>
+            <PageLink to={`/address/${item?.from}`}>
+              {shortenAddress(item.to)}
+            </PageLink>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-const LatestTxns = ({ latestTransactions = [] }) => {
+const LatestTxns = () => {
+  const [latestTransactions, setLatestTransactions] = useState([]);
+
+  useEffect(() => {
+    getLatestTransactions()
+      .then((res) => {
+        setLatestTransactions(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <section className="overflow-hidden rounded-lg border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
-      <div className="pt-3">
-        <div className="border-b">
-          <div className="mb-2 px-5">
-            <h2 className="font-medium">Latest Transactions</h2>
-          </div>
-        </div>
-
-        <div>
-          {latestTransactions.map((transaction) => (
-            <TxnInfo key={transaction.transactionHash} {...transaction} />
-          ))}
-        </div>
-
-        <div className="bg-color to change">
-          <div className="px-5">
-            <div className="flex justify-center py-2">
-              <button className="text-[0.95rem] uppercase">
-                View all transactions
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section className="mx-2 overflow-hidden rounded-xl border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
+      <h3 className="m-4 text-base font-bold">Latest Transactions</h3>
+      <div className="border-[0.5px] dark:border-tertiaryBgDark" />
+      {latestTransactions.map((item) => (
+        <TxCard item={item} />
+      ))}
+      <PageLink to={`/transactions/404`}>
+        <h3 className="py-4 text-center text-sm font-medium uppercase text-transactionGray hover:text-activeDark">
+          View all transactions &rarr;
+        </h3>
+      </PageLink>
     </section>
   );
 };

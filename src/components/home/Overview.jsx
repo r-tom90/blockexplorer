@@ -1,5 +1,6 @@
 import {
   getFinalizedAndSafeBlock,
+  getETHPrice,
   getMarketCap,
   getGasPrice,
 } from "../../alchemy-core";
@@ -15,7 +16,7 @@ import {
 import { PageLink } from "../PageLink";
 import { useEffect, useState } from "react";
 
-const Overview = ({ ethPrice }) => {
+const Overview = () => {
   const wait = "Fetching...";
 
   const [finalizedSafeBlocks, setBlocksInfo] = useState({
@@ -27,8 +28,19 @@ const Overview = ({ ethPrice }) => {
     },
   });
 
+  const [ethPrice, setEthPrice] = useState(`${wait}`);
   const [marketCap, setMarketCap] = useState(`${wait}`);
   const [gasPrice, setGasPrice] = useState(`${wait}`);
+
+  useEffect(() => {
+    getETHPrice()
+      .then((res) => {
+        setEthPrice(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   useEffect(() => {
     getMarketCap()
@@ -65,9 +77,9 @@ const Overview = ({ ethPrice }) => {
   return (
     <section>
       <div className="m-auto hidden w-full px-5 pt-10 sm:block">
-        <div className="rounded-lg border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
+        <div className="rounded-lg border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
           <div className="px-5 py-3">
-            <div className="grid  sm:grid-cols-12 ">
+            <div className="grid sm:grid-cols-12 ">
               <div className="col-span-6 border-r px-3 dark:border-tertiaryBgDark">
                 <div className="flex items-center gap-3 border-b py-3 dark:border-tertiaryBgDark">
                   <EthereumIcon />
@@ -75,7 +87,7 @@ const Overview = ({ ethPrice }) => {
                     <h3 className="text-xs dark:text-transactionGray">
                       ETHER PRICE
                     </h3>
-                    <p>$ {ethPrice}</p>
+                    <p>$ {parseFloat(ethPrice).toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 py-3">
@@ -114,7 +126,7 @@ const Overview = ({ ethPrice }) => {
                       </h3>
                       <p>
                         <PageLink href={`/block/${gasPrice}`}>
-                          {gasPrice}
+                          {gasPrice} Gwei
                         </PageLink>
                       </p>
                     </div>

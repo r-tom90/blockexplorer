@@ -1,4 +1,5 @@
 import { alchemy } from "../configs/alchemy.config";
+import { Utils } from "alchemy-sdk";
 import { timeAgo } from "../utils";
 
 export const getLatestBlocks = async (maxBlocks = 6) => {
@@ -9,12 +10,17 @@ export const getLatestBlocks = async (maxBlocks = 6) => {
   }
 
   const latestBlocksRaw = await Promise.all(blockPromises);
+  console.log(latestBlocksRaw);
 
-  return latestBlocksRaw.map(({ miner, number, timestamp, transactions }) => ({
-    miner,
-    number,
-    timestamp,
-    transactions,
-    agoTimestamp: timeAgo(timestamp),
-  }));
+  return latestBlocksRaw.map(
+    ({ miner, number, timestamp, transactions, gasUsed }) => ({
+      miner,
+      number,
+      timestamp,
+      transactions,
+      gasUsed,
+      gasUsedInEth: Utils.formatUnits(gasUsed._hex, "gwei"),
+      agoTimestamp: timeAgo(timestamp),
+    })
+  );
 };

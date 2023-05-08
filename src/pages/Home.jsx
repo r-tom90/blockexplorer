@@ -1,68 +1,34 @@
 import { alchemy } from "../configs/alchemy.config";
-import {
-  getLatestBlocks,
-  getLatestTransactions,
-  // getEthPrice,
-  getMarketCap,
-} from "../alchemy-core";
+import { useState, useEffect, useRef } from "react";
+import { getLatestBlocks, getLatestTransactions } from "../alchemy-core";
 import { LatestBlock, LatestTxns, Overview } from "../components/home";
 import { SearchBar } from "../components/home";
 
-const Home = ({
-  blocksInfo,
-  latestTransactions,
-  // ethPrice,
-  marketCap,
-}) => {
+const Home = () => {
   return (
     <main className="flex flex-col justify-center">
-      <SearchBar />
+      {/* <SearchBar /> */}
       <Overview />
-      <section className="mt-8 flex justify-center">
-        <div className="grid gap-3 md:grid-cols-12">
-          <div className="col-span-6">
-            <LatestBlock blocksInfo={blocksInfo} />
-          </div>
-
-          <div className="col-span-6">
-            {<LatestTxns latestTransactions={latestTransactions} />}
-          </div>
+      <section className="m-auto hidden w-full px-5 pt-10 md:flex">
+        <div className="w-1/2">
+          <LatestBlock />
         </div>
+
+        <div className="w-1/2">
+          <LatestTxns />
+        </div>
+      </section>
+      <section className="flex md:hidden">
+        <p className="m-auto">
+          For the best viewing experience, we recommend viewing on a desktop.{" "}
+          <span className="text-red-600">
+            To make sure everything is visible, please view the content in a
+            larger window size of at least 640px.
+          </span>
+        </p>
       </section>
     </main>
   );
 };
 
 export default Home;
-
-export const getServerSideProps = async () => {
-  let blocksInfo = [];
-  let latestTransactions = [];
-  // let ethPrice = 0;
-  let marketCap = 0;
-
-  try {
-    [
-      blocksInfo,
-      latestTransactions,
-      // ethPrice,
-      marketCap,
-    ] = await Promise.all([
-      getLatestBlocks(),
-      getLatestTransactions(),
-      // getETHPrice(),
-      getMarketCap(),
-    ]);
-  } catch (err) {
-    console.log({ err });
-  }
-
-  return {
-    props: {
-      blocksInfo,
-      latestTransactions,
-      // ethPrice,
-      marketCap,
-    },
-  };
-};

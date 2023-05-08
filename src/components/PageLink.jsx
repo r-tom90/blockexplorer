@@ -8,7 +8,7 @@ export const PageLink = (props) => {
   return (
     <Link
       {...props}
-      className={`text-primaryTextLight dark:text-primaryTextDark dark:hover:text-activeLight ${props.className}`}
+      className={`text-activeLight dark:hover:text-activeDark ${props.className}`}
     />
   );
 };

@@ -1,3 +1,11 @@
+export const dateFormat = (date) => {
+  if (!String(date).match(new RegExp("[0-9]{10,13}"))) return null;
+  return new Intl.DateTimeFormat("en-us", {
+    dateStyle: "full",
+    timeStyle: "short",
+  }).format(new Date(date) * 1000);
+};
+
 // This function takes a number of seconds and returns a string representing
 // the time that has elapsed since that many seconds ago.
 export const timeAgo = (secondsAgo) => {
