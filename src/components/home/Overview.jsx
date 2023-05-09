@@ -76,11 +76,11 @@ const Overview = () => {
 
   return (
     <section>
-      <div className="m-auto hidden w-full px-5 pt-10 sm:block">
-        <div className="rounded-lg border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
+      <div className="m-auto w-full px-5 pt-10">
+        <div className="mx-1 rounded-lg border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
           <div className="px-5 py-3">
             <div className="grid sm:grid-cols-12 ">
-              <div className="col-span-6 border-r px-3 dark:border-tertiaryBgDark">
+              <div className="col-span-6 border-r-0 px-3 dark:border-tertiaryBgDark sm:border-r">
                 <div className="flex items-center gap-3 border-b py-3 dark:border-tertiaryBgDark">
                   <EthereumIcon />
                   <div className="ml-1">
@@ -106,7 +106,7 @@ const Overview = () => {
                 </div>
               </div>
               <div className="col-span-6 px-3">
-                <div className="flex items-center gap-3 border-b py-3 dark:border-tertiaryBgDark">
+                <div className="flex items-center gap-3 border-b border-t py-3 dark:border-tertiaryBgDark sm:border-t-0">
                   <div className="block dark:hidden">
                     <ServerIcon />
                   </div>

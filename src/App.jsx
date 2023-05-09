@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar, Footer } from "./components";
-import { Home, NotFound } from "./pages";
+import { Home, Block, NotFound } from "./pages";
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <div className="">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/block/:blocknumber" element={<Block />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

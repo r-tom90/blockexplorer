@@ -57,7 +57,7 @@ const LatestTxns = () => {
   }, []);
 
   return (
-    <section className="mx-2 overflow-hidden rounded-xl border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
+    <section className="mx-1 overflow-hidden rounded-xl border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
       <h3 className="m-4 text-base font-bold">Latest Transactions</h3>
       <div className="border-[0.5px] dark:border-tertiaryBgDark" />
       {latestTransactions.map((item) => (

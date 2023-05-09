@@ -1,20 +1,25 @@
-import { alchemy } from "../configs/alchemy.config";
-import { useState, useEffect, useRef } from "react";
-import { getLatestBlocks, getLatestTransactions } from "../alchemy-core";
 import { LatestBlock, LatestTxns, Overview } from "../components/home";
 import { SearchBar } from "../components";
 
 const Home = () => {
   return (
     <main className="flex flex-col justify-center">
-      <SearchBar />
-      <Overview />
-      <section className="m-auto hidden w-full px-5 pt-10 md:flex">
-        <div className="w-1/2">
+      <div className="my-10">
+        <div className="px-5">
+          <h1 className="text-xl font-[500]">
+            The Ethereum Blockchain Explorer
+          </h1>
+        </div>
+        <SearchBar />
+      </div>
+      <div>
+        <Overview />
+      </div>
+      <section className="m-auto block w-full px-5 pt-10 sm:flex">
+        <div className="mb-5 w-full sm:mb-0 sm:w-1/2">
           <LatestBlock />
         </div>
-
-        <div className="w-1/2">
+        <div className="mb-5 w-full sm:mb-0 sm:w-1/2">
           <LatestTxns />
         </div>
       </section>

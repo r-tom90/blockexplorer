@@ -5,10 +5,10 @@ import { NavBarLinks } from "./DataLinks/constants";
 
 const NavBar = () => {
   return (
-    <div className="">
+    <div className=" dark:bg-transactionBgDark">
       <TopBar />
       <div className="border-[0.5px] border-secondaryBgLight dark:border-secondaryBgDark" />
-      <div className="mx-5 block justify-between md:flex">
+      <div className="mx-5 my-1 block justify-between md:flex">
         <section className="mx-0 my-auto flex w-auto">
           <Link to="/">
             <img
