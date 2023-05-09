@@ -7,15 +7,6 @@ import { MdAccessTime } from "react-icons/md";
 import { Utils } from "alchemy-sdk";
 
 function BlockInfo({ block }) {
-  const formatWeiToLocaleString = (wei) =>
-    parseFloat(Utils.formatUnits(wei, "wei")).toLocaleString();
-
-  const formatEtherToLocaleString = (hex) =>
-    Utils.formatEther(hex).toString() + " ETH";
-
-  const formatUnitsToGwei = (hex) =>
-    Utils.formatUnits(hex, "gwei").toString() + " Gwei";
-
   return (
     <div className="mx-5">
       <div className="block-card">
@@ -81,18 +72,50 @@ function BlockInfo({ block }) {
           <section className="w-full p-5">
             <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray">Gas Used:</h4>
-              <p className="w-2/3">{block?.gasUsed._hex}</p>
+              <p className="w-2/3">
+                {block
+                  ? Number(
+                      Utils.formatUnits(block?.gasUsed._hex, "wei")
+                    ).toLocaleString()
+                  : null}{" "}
+                (
+                {block
+                  ? Number(
+                      (Utils.formatUnits(block?.gasUsed._hex, "wei") /
+                        Utils.formatUnits(block?.gasLimit._hex, "wei")) *
+                        100
+                    ).toFixed(2)
+                  : null}
+                %)
+              </p>
             </div>
             <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray">Gas Limit:</h4>
-              <p className="w-2/3">{block?.gasLimit._hex}</p>
+              <p className="w-2/3">
+                {block
+                  ? Number(
+                      Utils.formatUnits(block?.gasLimit._hex, "wei")
+                    ).toLocaleString()
+                  : null}
+              </p>
             </div>
             <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray">Base Fee Per Gas:</h4>
               <p className="w-2/3">
-                {block?.baseFeePerGas._hex} {""}
+                {block
+                  ? Number(
+                      Utils.formatEther(block?.baseFeePerGas._hex)
+                    ).toFixed(11)
+                  : null}{" "}
+                ETH {""}
                 <span className="text-transactionGray">
-                  ({block?.baseFeePerGas._hex} Gwei)
+                  (
+                  {block
+                    ? Number(
+                        Utils.formatUnits(block?.baseFeePerGas._hex, "gwei")
+                      ).toFixed(2)
+                    : null}{" "}
+                  Gwei)
                 </span>
               </p>
             </div>

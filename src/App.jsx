@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar, Footer } from "./components";
-import { Home, Block, NotFound } from "./pages";
+import { Home, Block, Transaction, NotFound } from "./pages";
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/block/:blocknumber" element={<Block />} />
+          <Route path="/tx/:txhash" element={<Transaction />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
