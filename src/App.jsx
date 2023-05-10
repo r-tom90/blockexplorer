@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar, Footer } from "./components";
-import { Home, Block, Transaction, NotFound } from "./pages";
+import { Home, Block, Transaction, Address, NotFound } from "./pages";
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/block/:blocknumber" element={<Block />} />
           <Route path="/tx/:txhash" element={<Transaction />} />
+          <Route path="/address/:address" element={<Address />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

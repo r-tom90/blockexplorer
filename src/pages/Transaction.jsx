@@ -42,11 +42,11 @@ const TransactionInfo = ({ transaction, receipt }) => {
                 >
                   <div className="flex items-center justify-center">
                     {receipt?.status === 1 ? (
-                      <div className="mr-0.5 rounded-full bg-[#00a186] px-1 text-stone-200 dark:text-black">
+                      <div className="mr-0.5 rounded-full bg-[#00a186] px-1 text-[10px] text-stone-200 dark:text-black">
                         &#10003;
                       </div>
                     ) : (
-                      <div className="mr-0.5 rounded-full bg-[#a1001b] px-1 text-stone-200 dark:text-black">
+                      <div className="mr-0.5 rounded-full bg-[#a1001b] px-1 text-[10px] text-stone-200 dark:text-black">
                         &#10007;
                       </div>
                     )}
@@ -64,6 +64,18 @@ const TransactionInfo = ({ transaction, receipt }) => {
             <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
               <h4 className="my-auto w-1/3 text-transactionGray">Block:</h4>
               <div className="flex">
+                <div className="my-auto w-[20px]">
+                  {/* 65 */}
+                  {receipt?.blockNumber >= 65 ? (
+                    <div className="mr-1 rounded-full bg-[#00a186] px-1  text-xs text-stone-200 dark:text-black">
+                      &#10003;
+                    </div>
+                  ) : (
+                    <div className="mr-0.5 text-lg  dark:text-transactionGray">
+                      &#10711;
+                    </div>
+                  )}
+                </div>
                 <PageLink
                   to={`/block/${receipt?.blockNumber}`}
                   style={{ margin: "auto 0" }}
