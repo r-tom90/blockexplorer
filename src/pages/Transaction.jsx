@@ -11,13 +11,13 @@ const TransactionInfo = ({ transaction, receipt }) => {
     <div className="mx-5">
       <div className="block-card">
         <div className="my-4 text-lg font-medium">
-          Transaction
+          Transaction Details
           <span className="text-base font-normal text-transactionGray">
             {/* {receipt?.transactionHash} */}
           </span>
         </div>
         <div className="border-[0.5px] dark:border-tertiaryBgDark" />
-        <div className="my-4 overflow-hidden rounded-xl border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
+        <div className="my-4 overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20">
           <section className="w-full p-5">
             <div className="block w-full py-1 text-base sm:px-0 md:flex ">
               <h4 className="w-1/3 text-transactionGray ">Transaction Hash:</h4>

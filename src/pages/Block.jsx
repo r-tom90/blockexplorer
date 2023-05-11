@@ -9,127 +9,126 @@ import { Utils } from "alchemy-sdk";
 function BlockInfo({ block }) {
   return (
     <div className="mx-5">
-      <div className="block-card">
-        <div className="my-4 text-lg font-medium">
-          Block{" "}
-          <span className="text-base font-normal text-transactionGray">
-            #{block?.number}
-          </span>
-        </div>
-        <div className="border-[0.5px] dark:border-tertiaryBgDark" />
-        <div className="my-4 overflow-hidden rounded-xl border shadow-md dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight">
-          <section className="w-full p-5">
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray ">Block Height:</h4>
-              <p className="w-2/3">{block?.number}</p>
-            </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Timestamp:</h4>
-              <div className="flex w-2/3">
-                <div className="my-auto mr-1">
-                  <MdAccessTime />
-                </div>
-                {block?.timestamp ? timeAgo(block.timestamp) : null} ({" "}
-                {block?.timestamp ? dateFormat(block.timestamp) : null} )
+      <div className="my-4 text-lg font-medium">
+        Block{" "}
+        <span className="text-base font-normal text-transactionGray">
+          #{block?.number}
+        </span>
+      </div>
+      <div className="border-[0.5px] dark:border-tertiaryBgDark" />
+      <div className="my-4 overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20">
+        <section className="w-full p-5">
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray ">Block Height:</h4>
+            <p className="w-2/3">{block?.number}</p>
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Timestamp:</h4>
+            <div className="flex w-2/3">
+              <div className="my-auto mr-1">
+                <MdAccessTime />
               </div>
+              {block?.timestamp ? timeAgo(block.timestamp) : null} ({" "}
+              {block?.timestamp ? dateFormat(block.timestamp) : null} )
             </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Transactions:</h4>
-              <PageLink to={`/address/${block?.miner}`}>
-                <p className="flex w-2/3">
-                  {block?.transactions.length}{" "}
-                  <span className="ml-1">transactions</span>
-                </p>
-              </PageLink>
-            </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Nonce:</h4>
-              <p className="w-2/3">{block?.nonce}</p>
-            </div>
-          </section>
-          <div className="border-[0.5px] dark:border-tertiaryBgDark" />
-          <section className="w-full p-5">
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Fee Recipient:</h4>
-              <PageLink to={`/address/${block?.miner}`}>
-                <p className="w-2/3">{shortenAddress(block?.miner)}</p>
-              </PageLink>
-            </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Block Reward</h4>
-              <p className="w-2/3">WIP</p>
-            </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Total Difficulty:</h4>
-              <p className="w-2/3">{block?.difficulty}</p>
-            </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Size:</h4>
-              <p className="w-2/3">{block?.nonce} bytes</p>
-            </div>
-          </section>
-          <div className="border-[0.5px] dark:border-tertiaryBgDark" />
-          <section className="w-full p-5">
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Gas Used:</h4>
-              <p className="w-2/3">
-                {block
-                  ? Number(
-                      Utils.formatUnits(block?.gasUsed._hex, "wei")
-                    ).toLocaleString()
-                  : null}{" "}
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Transactions:</h4>
+            <PageLink to={`/address/${block?.miner}`}>
+              <p className="flex w-2/3">
+                {block?.transactions.length}{" "}
+                <span className="ml-1">transactions</span>
+              </p>
+            </PageLink>
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Nonce:</h4>
+            <p className="w-2/3">{block?.nonce}</p>
+          </div>
+        </section>
+        <div className="border-[0.5px] dark:border-tertiaryBgDark" />
+        <section className="w-full p-5">
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Fee Recipient:</h4>
+            <PageLink to={`/address/${block?.miner}`}>
+              <p className="w-2/3">{shortenAddress(block?.miner)}</p>
+            </PageLink>
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Block Reward</h4>
+            <p className="w-2/3">WIP</p>
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Total Difficulty:</h4>
+            <p className="w-2/3">{block?.difficulty}</p>
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Size:</h4>
+            <p className="w-2/3">{block?.nonce} bytes</p>
+          </div>
+        </section>
+        <div className="border-[0.5px] dark:border-tertiaryBgDark" />
+        <section className="w-full p-5">
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Gas Used:</h4>
+            <p className="w-2/3">
+              {block
+                ? Number(
+                    Utils.formatUnits(block?.gasUsed._hex, "wei")
+                  ).toLocaleString()
+                : null}{" "}
+              (
+              {block
+                ? Number(
+                    (Utils.formatUnits(block?.gasUsed._hex, "wei") /
+                      Utils.formatUnits(block?.gasLimit._hex, "wei")) *
+                      100
+                  ).toFixed(2)
+                : null}
+              %)
+            </p>
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Gas Limit:</h4>
+            <p className="w-2/3">
+              {block
+                ? Number(
+                    Utils.formatUnits(block?.gasLimit._hex, "wei")
+                  ).toLocaleString()
+                : null}
+            </p>
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Base Fee Per Gas:</h4>
+            <p className="w-2/3">
+              {block
+                ? Number(Utils.formatEther(block?.baseFeePerGas._hex)).toFixed(
+                    11
+                  )
+                : null}{" "}
+              ETH {""}
+              <span className="text-transactionGray">
                 (
                 {block
                   ? Number(
-                      (Utils.formatUnits(block?.gasUsed._hex, "wei") /
-                        Utils.formatUnits(block?.gasLimit._hex, "wei")) *
-                        100
+                      Utils.formatUnits(block?.baseFeePerGas._hex, "gwei")
                     ).toFixed(2)
-                  : null}
-                %)
-              </p>
-            </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Gas Limit:</h4>
-              <p className="w-2/3">
-                {block
-                  ? Number(
-                      Utils.formatUnits(block?.gasLimit._hex, "wei")
-                    ).toLocaleString()
-                  : null}
-              </p>
-            </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Base Fee Per Gas:</h4>
-              <p className="w-2/3">
-                {block
-                  ? Number(
-                      Utils.formatEther(block?.baseFeePerGas._hex)
-                    ).toFixed(11)
                   : null}{" "}
-                ETH {""}
-                <span className="text-transactionGray">
-                  (
-                  {block
-                    ? Number(
-                        Utils.formatUnits(block?.baseFeePerGas._hex, "gwei")
-                      ).toFixed(2)
-                    : null}{" "}
-                  Gwei)
-                </span>
-              </p>
-            </div>
+                Gwei)
+              </span>
+            </p>
+          </div>
 
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Burnt Fees:</h4>
-              <p className="w-2/3">WIP</p>
-            </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
-              <h4 className="w-1/3 text-transactionGray">Extra Data:</h4>
-              <p className="w-2/3">WIP</p>
-            </div>
-          </section>
-          {/* <details>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Burnt Fees:</h4>
+            <p className="w-2/3">WIP</p>
+          </div>
+          <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <h4 className="w-1/3 text-transactionGray">Extra Data:</h4>
+            <p className="w-2/3">WIP</p>
+          </div>
+        </section>
+        {/* <details>
             <summary>Transactions [{block?.transactions.length}]: </summary>
             <ul>
               {block?.transactions.map((item, index) => (
@@ -145,7 +144,6 @@ function BlockInfo({ block }) {
               ))}
             </ul>
           </details> */}
-        </div>
       </div>
     </div>
   );

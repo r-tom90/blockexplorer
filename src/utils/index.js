@@ -1,4 +1,4 @@
-import { shortenAddress } from "./shortenAddress";
+import { shortenAddress, shortenTransaction } from "./shortenAddress";
 import { timeAgo, dateFormat } from "./time";
 
-export { shortenAddress, timeAgo, dateFormat };
+export { shortenAddress, shortenTransaction, timeAgo, dateFormat };

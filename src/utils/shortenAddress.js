@@ -5,5 +5,13 @@ export const shortenAddress = (address) => {
   if (!address) return null;
 
   // Otherwise, return the shortened version of the address
-  return `${address.slice(0, 5)}...${address.slice(-5)}`;
+  return `${address.slice(0, 7)}...${address.slice(-7)}`;
+};
+
+export const shortenTransaction = (address) => {
+  // If the address is not defined, return null
+  if (!address) return null;
+
+  // Otherwise, return the shortened version of the address
+  return `${address.slice(0, 17)}...`;
 };
