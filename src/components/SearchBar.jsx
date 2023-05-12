@@ -32,7 +32,7 @@ const SearchBar = () => {
   };
 
   return (
-    <section className="m-auto flex w-full flex-col px-5 py-2">
+    <section className="m-auto flex w-full flex-col">
       <form className="relative flex" onSubmit={handleSubmit}>
         <input
           type="search"
@@ -40,7 +40,7 @@ const SearchBar = () => {
           id="search"
           // TODO: Allow for Domain name search in the future
           placeholder="Search by Address / Txn Hash / Block / Token"
-          className="h-10 w-full rounded-l-lg border border-secondaryBgLight bg-tertiaryBgLight py-2 pl-8 placeholder:text-sm placeholder:text-tertiaryBgDark focus:border-transparent focus:outline-none focus:ring-2 focus:ring-activeLight dark:border-secondaryBgDark dark:bg-tertiaryBgDark dark:placeholder:text-tertiaryBgLight md:w-2/3"
+          className="h-10 w-full rounded-l-lg border border-secondaryBgLight bg-tertiaryBgLight py-2 pl-8 placeholder:text-sm placeholder:text-tertiaryBgDark focus:border-transparent focus:outline-none focus:ring-2 focus:ring-activeLight dark:border-secondaryBgDark dark:bg-tertiaryBgDark dark:placeholder:text-tertiaryBgLight"
         />
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <SlMagnifier className="text-gray-400" />

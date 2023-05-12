@@ -11,16 +11,11 @@ const NavBar = () => {
       <div className="mx-5 my-1 block justify-between md:flex">
         <section className="mx-0 my-auto flex w-auto">
           <Link to="/">
-            <img
+            {/* <img
               src={logoEtherscanLight}
               alt="etherscan logo"
               className="hidden h-8 dark:block"
-            />
-            <img
-              src={logoEtherscanDark}
-              alt="etherscan logo"
-              className="block h-8 dark:hidden"
-            />
+            /> */}
           </Link>
         </section>
         <section className="hidden w-auto sm:flex lg:ml-20">

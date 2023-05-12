@@ -4,6 +4,9 @@ import ethPurple from "./eth-purple.png";
 import ethRainbow from "./eth-rainbow.png";
 import logoEtherscanLight from "./logo-etherscan-light.svg";
 import logoEtherscanDark from "./logo-etherscan.svg";
+import richEtherscan from "./richEtherscan.png";
+import mapLight from "./map-light.png";
+import mapDark from "./map.png";
 
 export {
   home,
@@ -12,4 +15,7 @@ export {
   ethRainbow,
   logoEtherscanDark,
   logoEtherscanLight,
+  richEtherscan,
+  mapLight,
+  mapDark,
 };

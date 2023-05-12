@@ -1,3 +1,4 @@
+import { mapDark, mapLight } from "../assets";
 import { EthereumIcon } from "../icons";
 import { Company, Community, ProductsAndServices } from "./DataLinks/constants";
 
@@ -94,13 +95,13 @@ const Footer = () => {
               <picture className="hidden lg:block">
                 <img
                   width="300"
-                  src="../../public/images/map.png"
+                  src={mapDark}
                   alt="map"
                   className="block opacity-50 dark:hidden"
                 />
                 <img
                   width="300"
-                  src="../../public/images/map-light.png"
+                  src={mapLight}
                   alt="map"
                   className="hidden opacity-50 dark:block"
                 />
