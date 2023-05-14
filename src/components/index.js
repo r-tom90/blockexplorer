@@ -5,6 +5,7 @@ import ToggleTheme from "./ToggleTheme";
 import EthToggleButton from "./EthToggleButton";
 import Block from "./Block";
 import SearchBar from "./SearchBar";
+import EmblaCarousel from "./EmblaCarousel";
 
 export {
   NavBar,
@@ -14,4 +15,5 @@ export {
   EthToggleButton,
   Block,
   SearchBar,
+  EmblaCarousel,
 };

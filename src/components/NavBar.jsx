@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { TopBar } from "../components";
-import { logoEtherscanDark, logoEtherscanLight } from "../assets";
+import { richEtherscanLogo } from "../assets";
 import { NavBarLinks } from "./DataLinks/constants";
 
 const NavBar = () => {
@@ -11,11 +11,11 @@ const NavBar = () => {
       <div className="mx-5 my-1 block justify-between md:flex">
         <section className="mx-0 my-auto flex w-auto">
           <Link to="/">
-            {/* <img
-              src={logoEtherscanLight}
+            <img
+              src={richEtherscanLogo}
               alt="etherscan logo"
-              className="hidden h-8 dark:block"
-            /> */}
+              className="h-10"
+            />
           </Link>
         </section>
         <section className="hidden w-auto sm:flex lg:ml-20">

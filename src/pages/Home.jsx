@@ -1,13 +1,12 @@
 import { LatestBlock, LatestTxns, Overview } from "../components/home";
-import { SearchBar } from "../components";
-import { richEtherscan } from "../assets";
+import { EmblaCarousel, SearchBar } from "../components";
 
 const Home = () => {
   return (
     <main className="flex flex-col justify-center">
-      <div className="my-10">
+      <div className="my-5">
         <div className="block justify-between px-5 md:flex">
-          <div className="mr-10 flex w-full flex-col">
+          <div className="mr-10 flex w-full flex-col md:w-2/3">
             <h1 className="text-xl font-medium">
               The Ethereum Blockchain Explorer
             </h1>
@@ -16,12 +15,9 @@ const Home = () => {
               Sponsored: <span className="font-normal">TBA</span>
             </h3>
           </div>
-          <img
-            src={richEtherscan}
-            alt=""
-            width="400px"
-            className="mt-4 rounded md:my-0"
-          />
+          <div className="flex w-full justify-center md:w-1/3">
+            <EmblaCarousel />
+          </div>
         </div>
       </div>
       <div>

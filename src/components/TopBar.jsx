@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ToggleTheme, EthToggleButton } from "./index";
 import { GiGasPump } from "react-icons/gi";
 import { getGasPrice, getETHPrice } from "../alchemy-core";
+import Wallets from "./Wallets";
 
 // Above NavBar
 const TopBar = () => {
@@ -53,6 +54,7 @@ const TopBar = () => {
       <div className="flex">
         <ToggleTheme />
         <EthToggleButton />
+        <Wallets />
       </div>
     </div>
   );
