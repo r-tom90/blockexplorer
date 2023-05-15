@@ -32,3 +32,30 @@ body {
   background-color: #0784c3;
   color: #0784c3;
 } */
+
+.paginationBtn {
+  width: 100%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBtn a {
+  padding: 10px;
+  /* margin: 8px; */
+  border-radius: 0px;
+  border: 1px solid #0784c3;
+  color: #0784c3;
+  cursor: pointer;
+}
+
+.paginationBtn a:hover {
+  color: white;
+  background-color: #0784c3;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #0784c3;
+}

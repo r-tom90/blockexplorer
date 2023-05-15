@@ -8,7 +8,6 @@ const Footer = () => {
   };
   return (
     <footer className="mt-10 bg-primaryBgLight pb-0 pt-10 dark:bg-primaryBgDark">
-      {/* {max-w-7xl } */}
       <div className="m-auto px-5">
         <div className="border-b border-b-secondaryBgLight">
           <div className="mb-3 flex flex-wrap justify-between md:flex-nowrap">

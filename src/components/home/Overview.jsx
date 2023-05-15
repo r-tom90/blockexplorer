@@ -33,47 +33,54 @@ const Overview = () => {
   const [gasPrice, setGasPrice] = useState(`${wait}`);
 
   useEffect(() => {
-    getETHPrice()
-      .then((res) => {
-        setEthPrice(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+    const fetchETHPrice = async () => {
+      try {
+        const response = await getETHPrice();
+        setEthPrice(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchETHPrice();
+  }, []);
 
   useEffect(() => {
-    getMarketCap()
-      .then((res) => {
-        setMarketCap(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+    const fetchMarketCap = async () => {
+      try {
+        const response = await getMarketCap();
+        setMarketCap(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchMarketCap();
+  }, []);
 
   useEffect(() => {
-    getFinalizedAndSafeBlock()
-      .then((res) => {
-        setBlocksInfo(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const fetchBlock = async () => {
+      try {
+        const response = await getFinalizedAndSafeBlock();
+        setBlocksInfo(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchBlock();
   }, []);
 
   useEffect(() => {
     const fetchGasPrice = async () => {
-      const price = await getGasPrice();
-      if (price) {
-        setGasPrice(price);
-      } else {
-        setGasPrice("error fetching gas price");
+      try {
+        const response = await getGasPrice();
+        setGasPrice(response);
+      } catch (error) {
+        console.log(error);
       }
     };
     fetchGasPrice();
   }, []);
 
+  console.log("finalizedSafeBlocks", finalizedSafeBlocks);
   return (
     <section>
       <div className="m-auto w-full px-5 pt-10">

@@ -1,97 +1,77 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 import { alchemy } from "../configs/alchemy.config";
 import { Utils } from "alchemy-sdk";
 import { shortenAddress, shortenTransaction } from "../utils/shortenAddress";
+import { AddressInfo, MoreInfo, MultiChain } from "./Address/AddressInfo";
 
-const AddressInfo = ({ balance, address, count }) => {
-  return (
-    <div className="mx-1 my-4 w-full overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20 md:w-1/3">
-      <section className="w-full p-5">
-        <h4 className="text-base font-medium">Overview</h4>
-        <div className="my-4 flex flex-col">
-          <p className="text-[13px] uppercase text-transactionGray">
-            Eth Balance{" "}
-          </p>
-          <p className="text-[15px]">{Number(balance).toFixed(18)} ETH</p>
-        </div>
-        <div className="my-4 flex flex-col">
-          <p className="text-[13px] uppercase text-transactionGray">
-            Eth Value{" "}
-          </p>
-          <p className="text-[15px]">
-            $ {(Number(balance).toFixed(2) * 1800).toLocaleString()}
-          </p>
-          {/* {address} */}
-        </div>
-        <div className="flex flex-col">
-          <p className="text-[13px] uppercase text-transactionGray">
-            Token Holdings{" "}
-          </p>
-          <p className="text-[15px]">WIP</p>
-        </div>
-      </section>
-    </div>
-  );
-};
-
-const MoreInfo = ({ balance, address, count }) => {
-  return (
-    <div className="mx-1 my-4 w-full overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20 md:w-1/3">
-      <section className="w-full p-5">
-        <h4 className="text-base font-medium">More Info</h4>
-        <div className="my-4 flex flex-col">
-          <p className="text-[13px] uppercase text-transactionGray">
-            Private name tag{" "}
-          </p>
-          <p className="text-[15px]">WIP</p>
-        </div>
-        <div className="my-4 flex flex-col">
-          <p className="text-[13px] uppercase text-transactionGray">
-            Last txn sent{" "}
-          </p>
-          <p className="text-[15px]">WIP</p>
-        </div>
-        <div className="flex flex-col">
-          <p className="text-[13px] uppercase text-transactionGray">
-            First txn sent{" "}
-          </p>
-          <p className="text-[15px]">WIP</p>
-        </div>
-      </section>
-    </div>
-  );
-};
-
-const MultiChain = ({ balance, address, count }) => {
-  return (
-    <div className="mx-1 my-4 w-full overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20 md:w-1/3">
-      <section className="w-full p-5">
-        <h4 className="text-base font-medium">Multi Chain</h4>
-        <div className="my-4 flex flex-col">
-          <p className="text-[13px] uppercase text-transactionGray">
-            Multichain Addresses{" "}
-          </p>
-          <p className="text-[15px]">{Number(balance).toFixed(18)} ETH</p>
-        </div>
-        <div className="my-4 flex flex-col">
-          <p className="text-[13px] uppercase text-transactionGray">
-            Sponsor image{" "}
-          </p>
-        </div>
-      </section>
-    </div>
-  );
-};
 const Address = () => {
   const params = useParams();
   const [balance, setBalance] = useState();
   const [count, setCount] = useState();
   const [history, setHistory] = useState();
+  const [historyLabel, setHistoryLabel] = useState("All");
   const [showHistory, setShowHistory] = useState();
-  const [historyLabel, setHistoryLabel] = useState();
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const transactionsPerPage = 25;
+  const pageVisited = pageNumber * transactionsPerPage;
+  const pageCount = Math.ceil(showHistory?.length / transactionsPerPage);
+  const displayTransactions = showHistory
+    ?.slice(pageVisited, pageVisited + transactionsPerPage)
+    .map((item) => {
+      return (
+        <tr className="" key={`${item.uniqueId}-1`}>
+          <td
+            className="py-2 pl-5 text-left"
+            key={`${item.uniqueId}-2`}
+            title={item.hash}
+          >
+            <Link className="text-activeDark" to={`/tx/${item.hash}`}>
+              {shortenTransaction(item.hash)}
+            </Link>
+          </td>
+          <td key={`${item.uniqueId}-3`}>
+            <Link
+              className="text-activeDark"
+              to={`/block/${parseInt(item.blockNum, 16)}`}
+            >
+              {parseInt(item.blockNum)}
+            </Link>
+          </td>
+          <td key={`${item.uniqueId}-4`} title={item.from}>
+            <Link className="text-activeDark" to={`/address/${item.from}`}>
+              {shortenAddress(item.from)}
+            </Link>
+          </td>
+          <td key={`${item.uniqueId}-5`} title={item.to}>
+            <Link className="text-activeDark" to={`/address/${item.to}`}>
+              {shortenAddress(item.to)}
+            </Link>
+          </td>
+          <td key={`${item.uniqueId}-6`}>
+            {Number(item.value).toFixed(4)} {item.asset}
+          </td>
+        </tr>
+      );
+    });
+
+  // Invoke when user click to request another page.
+  const handlePageClick = ({ selected }) => {
+    const newOffset = (selected * transactionsPerPage) % showHistory?.length;
+    console.log(
+      `User requested page number ${selected}, which is offset ${newOffset}`
+    );
+    setPageNumber(selected);
+  };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    filterAndSortHistory();
+  }, [history]);
+
   useEffect(() => {
     async function getAddress() {
       try {
@@ -217,35 +197,34 @@ const Address = () => {
         <MoreInfo address={params.address} count={count} balance={balance} />
         <MultiChain address={params.address} count={count} balance={balance} />
       </div>
-      <div className="transaction-history">
-        {/* <div className="">Transactions: {historyLabel}</div> */}
-        <div className="flex h-auto w-[400px] py-3 pl-1">
-          <div className="flex w-full justify-between overflow-x-scroll text-[13px] text-primaryTextDark">
-            <button
-              className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
-              onClick={filterAndSortHistory}
-            >
-              Transactions
-            </button>
-            <button
-              className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
-              onClick={onTabClickE}
-            >
-              External
-            </button>
-            <button
-              className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
-              onClick={onTabClickI}
-            >
-              Internal
-            </button>
-            <button
-              className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
-              onClick={onTabClick20}
-            >
-              Token Transfers (ERC20)
-            </button>
-            {/* <button
+
+      <section className="flex h-auto w-[400px] pl-1 pt-3">
+        <div className="flex w-full justify-between overflow-x-scroll text-[13px] text-primaryTextDark">
+          <button
+            className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
+            onClick={filterAndSortHistory}
+          >
+            Transactions
+          </button>
+          <button
+            className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
+            onClick={onTabClickE}
+          >
+            External
+          </button>
+          <button
+            className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
+            onClick={onTabClickI}
+          >
+            Internal
+          </button>
+          <button
+            className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
+            onClick={onTabClick20}
+          >
+            Token Transfers (ERC20)
+          </button>
+          {/* <button
               className="rounded-md bg-tertiaryBgDark px-2 py-1 focus:bg-activeLight active:bg-activeDark"
               onClick={onTabClick721}
             >
@@ -257,31 +236,52 @@ const Address = () => {
             >
               Erc1155
             </button> */}
+        </div>
+      </section>
+      <section className="mx-1 my-4 w-full overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20">
+        <div className="flex w-full justify-between p-5">
+          <p className="text-sm">
+            Latest 25 from a total of {showHistory?.length} transactions
+          </p>
+          <div>
+            <ReactPaginate
+              previousLabel="|< "
+              nextLabel=" >|"
+              pageCount={pageCount}
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={0}
+              marginPagesDisplayed={0}
+              containerClassName="paginationBtn"
+              previousLinkClassName="previousBtn"
+              nextLinkClassName="nextBtn"
+              activeClassName="paginationActive"
+            />
           </div>
         </div>
-        <div>
-          <table className="mx-1 my-4 w-full overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20">
-            <thead className="">
-              <tr className="text-tertiaryText text-left text-[13px] font-semibold tracking-wide">
-                <td className="p-2 pl-5" key="transactionHash">
-                  Transaction Hash
-                </td>
-                <td className="p-2" key="historyBlockNumber">
-                  Block
-                </td>
-                <td className="p-2" key="historyTransactionFrom">
-                  From
-                </td>
-                <td className="p-2" key="historyTransactionTo">
-                  To
-                </td>
-                <td className="p-2" key="historyTransactionValue">
-                  Value
-                </td>
-              </tr>
-            </thead>
-            <tbody className="text-center text-[15px]">
-              {showHistory?.map((item) => {
+        <table className="w-full">
+          <thead className="">
+            <tr className="text-tertiaryText text-left text-[13px] font-semibold tracking-wide">
+              <td className="p-2 pl-5" key="transactionHash">
+                Transaction Hash
+              </td>
+              <td className="p-2" key="historyBlockNumber">
+                Block
+              </td>
+              <td className="p-2" key="historyTransactionFrom">
+                From
+              </td>
+              <td className="p-2" key="historyTransactionTo">
+                To
+              </td>
+              <td className="p-2" key="historyTransactionValue">
+                Value
+              </td>
+            </tr>
+          </thead>
+          <tbody className="text-center text-[15px]">
+            {showHistory
+              ?.slice(pageVisited, pageVisited + transactionsPerPage)
+              .map((item) => {
                 return (
                   <tr className="" key={`${item.uniqueId}-1`}>
                     <td
@@ -323,11 +323,11 @@ const Address = () => {
                   </tr>
                 );
               })}
-              {/* <div className="border-[0.5px] dark:border-tertiaryBgDark" /> */}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            {/* <div className="border-[0.5px] dark:border-tertiaryBgDark" /> */}
+            {/* {displayTransactions} */}
+          </tbody>
+        </table>
+      </section>
     </div>
   );
 };

@@ -47,13 +47,15 @@ const LatestBlock = () => {
   const [latestBlocks, setLatestBlocks] = useState([]);
 
   useEffect(() => {
-    getLatestBlocks()
-      .then((res) => {
-        setLatestBlocks(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const fetchLatestBlock = async () => {
+      try {
+        const response = await getLatestBlocks();
+        setLatestBlocks(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchLatestBlock();
   }, []);
 
   return (

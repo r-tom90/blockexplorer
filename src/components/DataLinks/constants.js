@@ -1,27 +1,27 @@
 export const Company = {
-  "About Us": "/about",
-  "Brand Assets": "/brand",
+  "About Us": "/",
+  // "Brand Assets": "/brand-assets",
   "Contact Us": "/contact",
-  Careers: "/careers",
+  // Careers: "/careers",
   "Terms of Service": "/terms",
-  "Bug Bounty": "/bug-bounty",
+  // "Bug Bounty": "/bug-bounty",
 };
 
 export const Community = {
-  "API Documentation": "/api-docs",
-  "Knowledge Base": "/knowledge-base",
-  "Network Status": "/network-status",
+  // "API Documentation": "/api-docs",
+  // "Knowledge Base": "/knowledge-base",
+  // "Network Status": "/network-status",
   Newsletters: "/newsletters",
-  "Disqus Comments": "/disqus-comments",
+  // "Disqus Comments": "/disqus-comments",
 };
 
 export const ProductsAndServices = {
   Advertise: "/advertise",
   "Explorer-as-a-Service (EaaS)": "/explorer-as-a-service",
-  "API Plans": "/api-plans",
-  "Priority Support": "/priority-support",
+  // "API Plans": "/api-plans",
+  // "Priority Support": "/priority-support",
   Blockscan: "/blockscan",
-  "Blockscan Chat": "/blockscan-chat",
+  // "Blockscan Chat": "/blockscan-chat",
 };
 
 export const NavBarLinks = {
@@ -29,7 +29,7 @@ export const NavBarLinks = {
   Blockchain: "blockchain",
   Tokens: "tokens",
   NFTs: "nfts",
-  Resources: "resources",
+  // Resources: "resources",
   Developers: "developers",
   More: "more",
   // NestedExample: [

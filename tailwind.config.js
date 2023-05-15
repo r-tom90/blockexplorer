@@ -15,7 +15,7 @@ export default {
         tertiaryBgDark: "#454545",
         transactionBgDark: "#111111",
         transactionGray: "#bbbbbb",
-        transactionBgLight: "#111111",
+        transactionBgLight: "#fff",
         activeLight: "#0784c3",
         activeDark: "#6ab5db",
       },

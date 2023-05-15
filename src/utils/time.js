@@ -6,25 +6,6 @@ export const dateFormat = (date) => {
   }).format(new Date(date) * 1000);
 };
 
-// This function takes a number of seconds and returns a string representing
-// the time that has elapsed since that many seconds ago.
-// export const timeAgo = (secondsAgo) => {
-//   // If the number of seconds is not defined, return null
-//   if (!secondsAgo) return null;
-
-//   // Calculate the number of seconds that have elapsed since `secondsAgo` seconds ago
-//   const seconds = Math.ceil((Date.now() - secondsAgo * 1000) / 1000);
-
-//   // If more than 60 seconds have elapsed, display the number of minutes that have elapsed
-//   if (seconds > 60) {
-//     return Math.floor(seconds / 60) + "min";
-//   }
-
-//   // Otherwise, display the number of seconds that have elapsed
-//   return seconds + " secs";
-// };
-
-// ! Use below
 export const timeAgo = (secondsAgo) => {
   // if the number of seconds is not defined, return null
   if (!secondsAgo) return null;
