@@ -6,6 +6,7 @@ import EthToggleButton from "./EthToggleButton";
 import Block from "./Block";
 import SearchBar from "./SearchBar";
 import EmblaCarousel from "./EmblaCarousel";
+import CopyToClipboard from "./CopyToClipboard";
 
 export {
   NavBar,
@@ -16,4 +17,5 @@ export {
   Block,
   SearchBar,
   EmblaCarousel,
+  CopyToClipboard,
 };

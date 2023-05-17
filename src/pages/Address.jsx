@@ -5,6 +5,7 @@ import { alchemy } from "../configs/alchemy.config";
 import { Utils } from "alchemy-sdk";
 import { shortenAddress, shortenTransaction } from "../utils/shortenAddress";
 import { AddressInfo, MoreInfo, MultiChain } from "./Address/AddressInfo";
+import { CopyToClipboard } from "../components";
 
 const Address = () => {
   const params = useParams();
@@ -18,44 +19,6 @@ const Address = () => {
   const transactionsPerPage = 25;
   const pageVisited = pageNumber * transactionsPerPage;
   const pageCount = Math.ceil(showHistory?.length / transactionsPerPage);
-  const displayTransactions = showHistory
-    ?.slice(pageVisited, pageVisited + transactionsPerPage)
-    .map((item) => {
-      return (
-        <tr className="" key={`${item.uniqueId}-1`}>
-          <td
-            className="py-2 pl-5 text-left"
-            key={`${item.uniqueId}-2`}
-            title={item.hash}
-          >
-            <Link className="text-activeDark" to={`/tx/${item.hash}`}>
-              {shortenTransaction(item.hash)}
-            </Link>
-          </td>
-          <td key={`${item.uniqueId}-3`}>
-            <Link
-              className="text-activeDark"
-              to={`/block/${parseInt(item.blockNum, 16)}`}
-            >
-              {parseInt(item.blockNum)}
-            </Link>
-          </td>
-          <td key={`${item.uniqueId}-4`} title={item.from}>
-            <Link className="text-activeDark" to={`/address/${item.from}`}>
-              {shortenAddress(item.from)}
-            </Link>
-          </td>
-          <td key={`${item.uniqueId}-5`} title={item.to}>
-            <Link className="text-activeDark" to={`/address/${item.to}`}>
-              {shortenAddress(item.to)}
-            </Link>
-          </td>
-          <td key={`${item.uniqueId}-6`}>
-            {Number(item.value).toFixed(4)} {item.asset}
-          </td>
-        </tr>
-      );
-    });
 
   // Invoke when user click to request another page.
   const handlePageClick = ({ selected }) => {
@@ -185,11 +148,14 @@ const Address = () => {
 
   return (
     <div className="mx-5">
-      <div className="my-4 text-lg font-medium">
-        Address{" "}
-        <span className="text-base font-normal text-transactionGray">
-          {params.address}
-        </span>
+      <div className="my-4 flex text-lg font-medium">
+        <h4 className="flex items-center">
+          Address
+          <span className="mx-1 text-base font-normal text-tertiaryBgLight">
+            {params.address}
+          </span>
+          <CopyToClipboard text={params.address} />
+        </h4>
       </div>
       <div className="border-[0.5px] dark:border-tertiaryBgDark" />
       <div className="block md:flex">

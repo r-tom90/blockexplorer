@@ -22,7 +22,7 @@ const { chains, publicClient } = configureChains(
   [
     publicProvider(),
     alchemyProvider({
-      apiKey: process.env.VITE_ALCHEMY_API_KEY,
+      apiKey: import.meta.env.VITE_ALCHEMY_API_KEY,
       stallTimeout: 1_000,
     }),
   ]

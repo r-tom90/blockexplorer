@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { mapDark, mapLight } from "../assets";
 import { EthereumIcon } from "../icons";
 import { Company, Community, ProductsAndServices } from "./DataLinks/constants";
+import CopyToClipboard from "./CopyToClipboard";
 
 const Footer = () => {
+  const [address, setAddress] = useState(
+    "0xB4d3cC81c3af96fBCeBEB7C8Dc92CE5025d30348"
+  );
   const onTop = () => {
     window.scrollTo(0, 0);
   };
@@ -141,14 +146,17 @@ const Footer = () => {
           </section>
         </div>
         <div className="flex flex-col justify-between text-xs text-primaryTextLight dark:text-primaryTextDark md:flex-row">
-          <p className="my-2 ">RichEtherScan &#169; 2023</p>
-          <p className="my-2 ">
-            Donations:
-            <span className="mx-1 text-activeLight dark:text-activeDark">
-              0xB4d3cC81c3af96fBCeBEB7C8Dc92CE5025d30348
-            </span>
-            ❤️
-          </p>
+          <p className="my-2">RichEtherScan &#169; 2023</p>
+          <div className="flex items-center">
+            <CopyToClipboard />
+            <p className="my-2">
+              Donations:
+              <span className="mx-1 text-activeLight dark:text-activeDark">
+                {address ? address : "..."}
+              </span>
+              ❤️
+            </p>
+          </div>
         </div>
       </div>
     </footer>
