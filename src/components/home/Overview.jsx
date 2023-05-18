@@ -33,51 +33,22 @@ const Overview = () => {
   const [gasPrice, setGasPrice] = useState(`${wait}`);
 
   useEffect(() => {
-    const fetchETHPrice = async () => {
+    const fetchData = async () => {
       try {
-        const response = await getETHPrice();
-        setEthPrice(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchETHPrice();
-  }, []);
+        const priceResponse = await getETHPrice();
+        const marketCapResponse = await getMarketCap();
+        const blockResponse = await getFinalizedAndSafeBlock();
+        const gasPriceResponse = await getGasPrice();
 
-  useEffect(() => {
-    const fetchMarketCap = async () => {
-      try {
-        const response = await getMarketCap();
-        setMarketCap(response);
+        setEthPrice(priceResponse);
+        setMarketCap(marketCapResponse);
+        setBlocksInfo(blockResponse);
+        setGasPrice(gasPriceResponse);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchMarketCap();
-  }, []);
-
-  useEffect(() => {
-    const fetchBlock = async () => {
-      try {
-        const response = await getFinalizedAndSafeBlock();
-        setBlocksInfo(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchBlock();
-  }, []);
-
-  useEffect(() => {
-    const fetchGasPrice = async () => {
-      try {
-        const response = await getGasPrice();
-        setGasPrice(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchGasPrice();
+    fetchData();
   }, []);
 
   console.log("finalizedSafeBlocks", finalizedSafeBlocks);
@@ -125,7 +96,7 @@ const Overview = () => {
                       <h3 className="text-xs dark:text-transactionGray">
                         TRANSACTIONS
                       </h3>
-                      <p>TBC</p>
+                      <p>WIP</p>
                     </div>
                     <div className="text-right">
                       <h3 className="text-xs dark:text-transactionGray">

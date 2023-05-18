@@ -148,7 +148,7 @@ const Footer = () => {
         <div className="flex flex-col justify-between text-xs text-primaryTextLight dark:text-primaryTextDark md:flex-row">
           <p className="my-2">RichEtherScan &#169; 2023</p>
           <div className="flex items-center">
-            <CopyToClipboard />
+            <CopyToClipboard text={address} />
             <p className="my-2">
               Donations:
               <span className="mx-1 text-activeLight dark:text-activeDark">

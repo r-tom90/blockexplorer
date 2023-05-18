@@ -6,6 +6,7 @@ import { PageLink } from "../components/PageLink";
 import { MdAccessTime } from "react-icons/md";
 import { Utils } from "alchemy-sdk";
 import { getBlockInfo } from "../alchemy-core";
+import { CopyToClipboard } from "../components";
 
 function BlockInfo({ block }) {
   return (
@@ -106,8 +107,10 @@ function BlockInfo({ block }) {
           <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
             <h4 className="w-1/3 text-transactionGray">Fee Recipient:</h4>
             <PageLink to={`/address/${block?.miner}`}>
+              {/* TODO: change long address of miner to ens names */}
               <p className="w-2/3">{block?.miner}</p>
             </PageLink>
+            <CopyToClipboard text={block?.miner} />
           </div>
           <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
             <h4 className="w-1/3 text-transactionGray">Block Reward</h4>
@@ -209,22 +212,6 @@ const Block = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   async function getBlock() {
-  //     try {
-  //       const data = await alchemy.core.getBlock(parseInt(params.blocknumber));
-  //       console.log("Block data", data);
-  //       if (!data) throw new Error("Invalid Block");
-
-  //       setBlock(data);
-  //       console.log(data);
-  //     } catch (err) {
-  //       navigate("/404", { replace: true });
-  //     }
-  //   }
-  //   getBlock();
-  // }, [params.blocknumber]);
-
   useEffect(() => {
     const fetchBlock = async () => {
       try {
@@ -238,8 +225,6 @@ const Block = () => {
     };
     fetchBlock();
   }, [params.blocknumber]);
-
-  console.log("block info", block);
 
   return (
     <>

@@ -1,12 +1,38 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { alchemy } from "../configs/alchemy.config";
 import { Utils } from "alchemy-sdk";
 import { PageLink } from "../components/PageLink";
-import { timeAgo, dateFormat, shortenAddress } from "../utils";
+import {
+  timeAgo,
+  dateFormat,
+  mediumAddress,
+  shortenTransaction,
+} from "../utils";
 import { MdAccessTime } from "react-icons/md";
+import {
+  getBlockInfo,
+  getTransaction,
+  getTransactionReceipt,
+} from "../alchemy-core";
+import { CopyToClipboard } from "../components";
 
 const TransactionInfo = ({ transaction, receipt }) => {
+  const [block, setBlock] = useState();
+
+  useEffect(() => {
+    const fetchBlock = async () => {
+      try {
+        const response = await getBlockInfo(transaction.blockNumber);
+        if (!response) throw new Error("Invalid Block");
+        setBlock(response);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchBlock();
+  }, []);
+
   return (
     <div className="mx-5">
       <div className="block-card">
@@ -19,14 +45,19 @@ const TransactionInfo = ({ transaction, receipt }) => {
         <div className="border-[0.5px] dark:border-tertiaryBgDark" />
         <div className="my-4 overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20">
           <section className="w-full p-5">
-            <div className="block w-full py-1 text-base sm:px-0 md:flex ">
-              <h4 className="w-1/3 text-transactionGray ">Transaction Hash:</h4>
-              <p className="flex w-2/3 sm:hidden">
-                {shortenAddress(receipt?.transactionHash)}
-              </p>
-              <p className="hidden w-2/3 sm:flex">{receipt?.transactionHash}</p>
+            <div className="block w-full py-1 text-sm sm:px-0 md:flex ">
+              <h4 className="w-1/3 text-transactionGray">Transaction Hash:</h4>
+              <div className="flex w-2/3">
+                <p className="mr-2 flex sm:hidden">
+                  {mediumAddress(receipt?.transactionHash)}
+                </p>
+                <p className="mr-2 hidden sm:flex">
+                  {shortenTransaction(receipt?.transactionHash)}
+                </p>
+                <CopyToClipboard text={receipt?.transactionHash} />
+              </div>
             </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray">Status:</h4>
               <div className="flex w-2/3">
                 <div
@@ -61,7 +92,7 @@ const TransactionInfo = ({ transaction, receipt }) => {
                 {block?.timestamp ? dateFormat(block.timestamp) : null} ) */}
               </div>
             </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="my-auto w-1/3 text-transactionGray">Block:</h4>
               <div className="flex">
                 <div className="my-auto w-[20px]">
@@ -87,42 +118,54 @@ const TransactionInfo = ({ transaction, receipt }) => {
                 </p>
               </div>
             </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray">Timestamp:</h4>
               <div className="flex w-2/3">
                 <div className="my-auto mr-1">
                   <MdAccessTime />
                 </div>
-                {transaction ? timeAgo(transaction?.timestamp) : null} ({" "}
-                {transaction ? dateFormat(transaction.timestamp) : null} )
+                {block ? timeAgo(block?.timestamp) : null} ({" "}
+                {block ? dateFormat(block.timestamp) : null} )
               </div>
             </div>
           </section>
           <div className="mx-5 border-[0.5px] dark:border-tertiaryBgDark" />
           <section className="w-full p-5">
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray ">Sponsored:</h4>
               <p className="w-2/3">Coming Soon</p>
             </div>
           </section>
           <div className="mx-5 border-[0.5px] dark:border-tertiaryBgDark" />
           <section className="w-full p-5">
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray ">From:</h4>
-              <PageLink to={`/address/${receipt?.from}`}>
-                <p className="flex w-2/3">{receipt?.from}</p>
-              </PageLink>
+              <div className="flex">
+                <PageLink to={`/address/${receipt?.from}`}>
+                  <p className="mr-1 hidden w-2/3 sm:flex">{receipt?.from}</p>
+                  <p className="mr-1 flex w-2/3 sm:hidden">
+                    {mediumAddress(receipt?.from)}
+                  </p>
+                </PageLink>
+                <CopyToClipboard text={receipt?.from} />
+              </div>
             </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray ">To:</h4>
-              <PageLink to={`/address/${receipt?.to}`}>
-                <p className="flex w-2/3">{receipt?.to}</p>
-              </PageLink>
+              <div className="flex">
+                <PageLink to={`/address/${receipt?.to}`}>
+                  <p className="mr-1 hidden w-2/3 sm:flex">{receipt?.to}</p>
+                  <p className="mr-1 flex w-2/3 sm:hidden">
+                    {mediumAddress(receipt?.to)}
+                  </p>
+                </PageLink>
+                <CopyToClipboard text={receipt?.to} />
+              </div>
             </div>
           </section>
           <div className="mx-5 border-[0.5px] dark:border-tertiaryBgDark" />
           <section className="w-full p-5">
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray ">Value:</h4>
               <p className="w-2/3">
                 {" "}
@@ -132,7 +175,7 @@ const TransactionInfo = ({ transaction, receipt }) => {
                 ETH
               </p>
             </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray ">Transaction Fee:</h4>
               <p className="w-2/3">
                 {" "}
@@ -142,7 +185,7 @@ const TransactionInfo = ({ transaction, receipt }) => {
                 ETH
               </p>
             </div>
-            <div className="block w-full py-1 text-base sm:flex sm:px-0 ">
+            <div className="block w-full py-1 text-sm sm:flex sm:px-0 ">
               <h4 className="w-1/3 text-transactionGray ">Gas Price:</h4>
               <p className="w-2/3">
                 {transaction
@@ -229,29 +272,25 @@ const Transaction = () => {
   let isMounted = useRef(true);
 
   useEffect(() => {
-    async function getTransaction() {
+    async function TransactionDetails() {
       try {
         const reg = new RegExp("0x[0-9a-fA-F]{64}");
         if (!params.txhash.match(reg)) throw new Error("Invalid Transaction");
 
-        const txReceipt = await alchemy.core.getTransactionReceipt(
-          params.txhash
-        );
-        const tx = await alchemy.core.getTransaction(params.txhash);
+        const txReceipt = await getTransactionReceipt(params.txhash);
+        const tx = await getTransaction(params.txhash);
 
         if (!txReceipt) throw new Error("Invalid Transaction");
 
         setReceipt(txReceipt);
         setTransaction(tx);
-        console.log("TransactionReceipt", txReceipt);
-        console.log("Transaction", tx);
       } catch (err) {
         navigate("/404", { replace: true });
       }
     }
 
     if (isMounted.current) {
-      getTransaction();
+      TransactionDetails();
     }
 
     return () => {

@@ -1,4 +1,21 @@
+import { useState, useEffect } from "react";
+import { getETHPrice } from "../../alchemy-core";
+
 export const AddressInfo = ({ balance, address, count }) => {
+  const [ethPrice, setEthPrice] = useState();
+
+  useEffect(() => {
+    const fetchETHPrice = async () => {
+      try {
+        const response = await getETHPrice();
+        setEthPrice(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchETHPrice();
+  }, []);
+
   return (
     <div className="mx-1 my-4 w-full overflow-hidden rounded-xl border shadow-lg dark:border-tertiaryBgDark dark:bg-transactionBgDark dark:shadow-tertiaryBgLight/20 md:w-1/3">
       <section className="w-full p-5">
@@ -14,7 +31,7 @@ export const AddressInfo = ({ balance, address, count }) => {
             Eth Value{" "}
           </p>
           <p className="text-[15px]">
-            $ {(Number(balance).toFixed(2) * 1800).toLocaleString()}
+            $ {(Number(balance) * ethPrice).toFixed(2)}
           </p>
           {/* {address} */}
         </div>

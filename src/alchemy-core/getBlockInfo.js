@@ -20,7 +20,11 @@ export const getBlockInfo = async (query) => {
   }
 
   // Fetch the block info using the Alchemy core library
+  // ? Returns the block from the network based on the provided block number or hash. Transactions on the block are represented as an array of transaction hashes. To get the full transaction details on the block, use getBlockWithTransactions instead.
   const blockInfo = await alchemy.core.getBlock(blockHashOrBlockTag);
+
+  // Log the getBlockInfo for debugging purposes.
+  console.log("getBlockInfo", blockInfo);
 
   // Return the block info object with additional properties
   return {
@@ -32,3 +36,21 @@ export const getBlockInfo = async (query) => {
     // difficulty: blockInfo.difficulty?.toString() || 0, // Renamed _difficulty to difficulty for clarity
   };
 };
+
+/* //* Response from getBlockInfo 
+{
+  hash: string,
+  parentHash: string,
+  number: number,
+  timestamp: number,
+  nonce: string,
+  difficulty: number,
+  gasLimit: BigNumber { _hex: 'Ox', _isBigNumber: boolean },
+  gasUsed: BigNumber { _hex: '0x', _isBigNumber: boolean },
+  miner: string,
+  extraData: '0x6e616e6f706f6f6c2e6f7267',
+  transactions: [],
+  baseFeePerGas: BigNumber { _hex: '0x', _isBigNumber: boolean },
+  _difficulty: BigNumber { _hex: '0x2', _isBigNumber: boolean }
+}
+*/

@@ -7,11 +7,18 @@ export const shortenAddress = (address) => {
   // Otherwise, return the shortened version of the address
   return `${address.slice(0, 7)}...${address.slice(-7)}`;
 };
+export const mediumAddress = (address) => {
+  // If the address is not defined, return null
+  if (!address) return null;
+
+  // Otherwise, return the shortened version of the address
+  return `${address.slice(0, 14)}...${address.slice(-14)}`;
+};
 
 export const shortenTransaction = (address) => {
   // If the address is not defined, return null
   if (!address) return null;
 
   // Otherwise, return the shortened version of the address
-  return `${address.slice(0, 17)}...`;
+  return `${address.slice(0, 32)}...`;
 };
