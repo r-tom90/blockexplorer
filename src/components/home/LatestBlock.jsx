@@ -67,7 +67,7 @@ const LatestBlock = () => {
       {latestBlocks.map((item) => (
         <BlockCard key={item.number} item={item} />
       ))}
-      <PageLink to={`/block/404`}>
+      <PageLink to={`/404`}>
         <h3 className="py-4 text-center text-sm font-medium uppercase text-transactionGray hover:text-activeDark">
           View all blocks &rarr;
         </h3>

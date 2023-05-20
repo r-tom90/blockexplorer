@@ -8,6 +8,7 @@ import trueNorth from "./trueNorth.png";
 import alchemy from "./alchemy.png";
 import mapLight from "./map-light.png";
 import mapDark from "./map.png";
+import Error from "./404.png";
 
 export {
   home,
@@ -20,4 +21,5 @@ export {
   alchemy,
   mapLight,
   mapDark,
+  Error,
 };

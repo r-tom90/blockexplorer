@@ -264,7 +264,6 @@ const TransactionInfo = ({ transaction, receipt }) => {
 };
 
 const Transaction = () => {
-  const wait = "fetching...";
   const [receipt, setReceipt] = useState();
   const [transaction, setTransaction] = useState();
   const params = useParams();

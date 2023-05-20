@@ -1,8 +1,9 @@
+import { Error } from "../assets";
 const NotFound = () => {
   return (
-    <>
-      <h1> 404 | Not Found</h1>
-    </>
+    <div className="mt-10 flex justify-center">
+      <img src={Error} className="w-1/2" alt="not found Ethereum" />
+    </div>
   );
 };
 

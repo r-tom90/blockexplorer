@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import "./polyfills";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -16,6 +17,9 @@ import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+import { ThemeProvider } from "./context/ThemeContext";
+
+const queryClient = new QueryClient();
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum],
@@ -42,22 +46,26 @@ const wagmiConfig = createConfig({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Router>
-      <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider
-          chains={chains}
-          theme={{
-            lightMode: lightTheme(),
-            darkMode: darkTheme(),
-          }}
-          appInfo={{
-            appName: "RichEthExplorer",
-            learnMoreUrl: "https://richardtom.site",
-          }}
-        >
-          <App />
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <WagmiConfig config={wagmiConfig}>
+          <ThemeProvider>
+            <RainbowKitProvider
+              chains={chains}
+              theme={{
+                lightMode: lightTheme(),
+                darkMode: darkTheme(),
+              }}
+              appInfo={{
+                appName: "RichEthExplorer",
+                learnMoreUrl: "https://richardtom.site",
+              }}
+            >
+              <App />
+            </RainbowKitProvider>
+          </ThemeProvider>
+        </WagmiConfig>
+      </Router>
+    </QueryClientProvider>
   </React.StrictMode>
 );

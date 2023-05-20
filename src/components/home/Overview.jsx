@@ -1,9 +1,14 @@
+import { useContext } from "react";
+import { useQuery } from "react-query";
+import { ThemeContext } from "../../context/ThemeContext";
+
 import {
   getFinalizedAndSafeBlock,
   getETHPrice,
   getMarketCap,
   getGasPrice,
 } from "../../alchemy-core";
+
 import {
   EthereumIcon,
   GlobeIcon,
@@ -14,44 +19,19 @@ import {
   ServerIconDark,
 } from "../../icons";
 import { PageLink } from "../PageLink";
-import { useEffect, useState } from "react";
 
 const Overview = () => {
-  const wait = "Fetching...";
+  const { data: ethPrice } = useQuery("ethPrice", getETHPrice);
+  const { data: marketCap } = useQuery("marketCap", getMarketCap);
+  const { data: blockResponse } = useQuery(
+    "blockResponse",
+    getFinalizedAndSafeBlock
+  );
+  const { data: gasPrice } = useQuery("gasPrice", getGasPrice);
 
-  const [finalizedSafeBlocks, setBlocksInfo] = useState({
-    finalized: {
-      blockNumber: `${wait}`,
-    },
-    safe: {
-      blockNumber: `${wait}`,
-    },
-  });
+  const { theme } = useContext(ThemeContext);
 
-  const [ethPrice, setEthPrice] = useState(`${wait}`);
-  const [marketCap, setMarketCap] = useState(`${wait}`);
-  const [gasPrice, setGasPrice] = useState(`${wait}`);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const priceResponse = await getETHPrice();
-        const marketCapResponse = await getMarketCap();
-        const blockResponse = await getFinalizedAndSafeBlock();
-        const gasPriceResponse = await getGasPrice();
-
-        setEthPrice(priceResponse);
-        setMarketCap(marketCapResponse);
-        setBlocksInfo(blockResponse);
-        setGasPrice(gasPriceResponse);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  console.log("finalizedSafeBlocks", finalizedSafeBlocks);
+  // console.log("blockResponse", blockResponse);
   return (
     <section>
       <div className="m-auto w-full px-5 pt-10">
@@ -69,12 +49,7 @@ const Overview = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 py-3">
-                  <div className="block dark:hidden">
-                    <GlobeIcon />
-                  </div>
-                  <div className="hidden dark:block">
-                    <GlobeIconDark />
-                  </div>
+                  {theme === "light" ? <GlobeIconDark /> : <GlobeIcon />}
                   <div className="ml-1">
                     <h3 className="text-xs dark:text-transactionGray">
                       MARKET CAP
@@ -85,12 +60,7 @@ const Overview = () => {
               </div>
               <div className="col-span-6 px-3">
                 <div className="flex items-center gap-3 border-b border-t py-3 dark:border-tertiaryBgDark sm:border-t-0">
-                  <div className="block dark:hidden">
-                    <ServerIcon />
-                  </div>
-                  <div className="hidden dark:block">
-                    <ServerIconDark />
-                  </div>
+                  {theme === "light" ? <ServerIconDark /> : <ServerIcon />}
                   <div className="flex w-full justify-between">
                     <div className="ml-1">
                       <h3 className="text-xs dark:text-transactionGray">
@@ -111,12 +81,7 @@ const Overview = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 py-3">
-                  <div className="block dark:hidden">
-                    <MeterIcon />
-                  </div>
-                  <div className="hidden dark:block">
-                    <MeterIconDark />
-                  </div>
+                  {theme === "light" ? <MeterIconDark /> : <MeterIcon />}
                   <div className="flex w-full justify-between">
                     <div className="ml-1">
                       <h3 className="text-xs dark:text-transactionGray">
@@ -124,9 +89,9 @@ const Overview = () => {
                       </h3>
                       <p>
                         <PageLink
-                          href={`/block/${finalizedSafeBlocks?.finalized?.blockNumber}`}
+                          href={`/block/${blockResponse?.finalized?.blockNumber}`}
                         >
-                          {finalizedSafeBlocks?.finalized?.blockNumber}
+                          {blockResponse?.finalized?.blockNumber}
                         </PageLink>
                       </p>
                     </div>
@@ -136,9 +101,9 @@ const Overview = () => {
                       </h3>
                       <p>
                         <PageLink
-                          href={`/block/${finalizedSafeBlocks?.safe?.blockNumber}`}
+                          href={`/block/${blockResponse?.safe?.blockNumber}`}
                         >
-                          {finalizedSafeBlocks?.safe?.blockNumber}
+                          {blockResponse?.safe?.blockNumber}
                         </PageLink>
                       </p>
                     </div>

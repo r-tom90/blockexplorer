@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { mapDark, mapLight } from "../assets";
 import { EthereumIcon } from "../icons";
 import { Company, Community, ProductsAndServices } from "./DataLinks/constants";
@@ -8,6 +9,8 @@ const Footer = () => {
   const [address, setAddress] = useState(
     "0xB4d3cC81c3af96fBCeBEB7C8Dc92CE5025d30348"
   );
+
+  const { theme } = useContext(ThemeContext);
   const onTop = () => {
     window.scrollTo(0, 0);
   };
@@ -99,15 +102,9 @@ const Footer = () => {
               <picture className="hidden lg:block">
                 <img
                   width="300"
-                  src={mapDark}
+                  src={theme === "light" ? mapLight : mapDark}
                   alt="map"
-                  className="block opacity-50 dark:hidden"
-                />
-                <img
-                  width="300"
-                  src={mapLight}
-                  alt="map"
-                  className="hidden opacity-50 dark:block"
+                  className="block opacity-50"
                 />
               </picture>
             </div>
