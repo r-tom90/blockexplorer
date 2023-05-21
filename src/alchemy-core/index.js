@@ -7,6 +7,7 @@ import { getLatestTransactions } from "./getLatestTransactions";
 import { getMarketCap } from "./getMarketCap";
 import { getTransaction } from "./getTransaction";
 import { getTransactionReceipt } from "./getTransactionReceipt";
+import { getDailyPercentageChange } from "./getDailyPercentageChange";
 
 export {
   getBlockInfo,
@@ -18,4 +19,5 @@ export {
   getMarketCap,
   getTransaction,
   getTransactionReceipt,
+  getDailyPercentageChange,
 };
