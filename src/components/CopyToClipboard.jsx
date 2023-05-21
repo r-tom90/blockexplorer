@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoMdCopy } from "react-icons/io";
+import { Copy, Tick } from "../assets";
 
 /**
  * A React component that creates a button to copy a given text to clipboard
@@ -12,13 +12,18 @@ const CopyToClipboard = ({ text }) => {
   // State for keeping track of copied text
   const [copiedText, setCopiedText] = useState("");
 
-  // Function to copy text to clipboard
+  /**
+   * Copies text to the user's clipboard
+   *
+   * @param {string} text - The text to be copied
+   */
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedText(text);
-    } catch (err) {
-      console.error("Failed to copy: ", err);
+      setTimeout(() => setCopiedText(false), 3000);
+    } catch (error) {
+      console.error("Failed to copy: ", error);
     }
   };
 
@@ -31,11 +36,13 @@ const CopyToClipboard = ({ text }) => {
         // Handle click event to copy text to clipboard
         onClick={() => copyToClipboard(text)}
       >
-        <IoMdCopy />
+        <img
+          src={copiedText === text ? Tick : Copy}
+          className="hover:outline-activeDark "
+          alt=""
+          srcset=""
+        />
       </button>
-      {/* Display message when text is copied */}
-      {/* {copiedText === text &&
-          console.log(`Copied "${copiedText}" to clipboard!`)} */}
     </>
   );
 };

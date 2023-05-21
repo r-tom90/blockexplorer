@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useQuery } from "react-query";
 import { ThemeContext } from "../../context/ThemeContext";
 
@@ -7,6 +7,7 @@ import {
   getETHPrice,
   getMarketCap,
   getGasPrice,
+  getDailyPercentageChange,
 } from "../../alchemy-core";
 
 import {
@@ -30,6 +31,17 @@ const Overview = () => {
   const { data: gasPrice } = useQuery("gasPrice", getGasPrice);
 
   const { theme } = useContext(ThemeContext);
+  const [dailyPriceChange, setDailyPriceChange] = useState();
+
+  useEffect(() => {
+    getDailyPercentageChange()
+      .then((response) => {
+        setDailyPriceChange(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   // console.log("blockResponse", blockResponse);
   return (
@@ -45,7 +57,19 @@ const Overview = () => {
                     <h3 className="text-xs dark:text-transactionGray">
                       ETHER PRICE
                     </h3>
-                    <p>$ {parseFloat(ethPrice).toLocaleString()}</p>
+                    <p>
+                      $ {parseFloat(ethPrice).toLocaleString()}{" "}
+                      <span
+                        className={`${
+                          dailyPriceChange > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }
+                        text-sm`}
+                      >
+                        ({parseFloat(dailyPriceChange).toFixed(2)}%)
+                      </span>
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 py-3">

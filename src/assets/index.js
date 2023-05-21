@@ -9,6 +9,8 @@ import alchemy from "./alchemy.png";
 import mapLight from "./map-light.png";
 import mapDark from "./map.png";
 import Error from "./404.png";
+import Copy from "./icons/copy.svg";
+import Tick from "./icons/tick.svg";
 
 export {
   home,
@@ -22,4 +24,6 @@ export {
   mapLight,
   mapDark,
   Error,
+  Copy,
+  Tick,
 };
