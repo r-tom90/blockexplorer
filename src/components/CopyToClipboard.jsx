@@ -39,8 +39,7 @@ const CopyToClipboard = ({ text }) => {
         <img
           src={copiedText === text ? Tick : Copy}
           className="hover:outline-activeDark "
-          alt=""
-          srcset=""
+          alt="copy to clipboard"
         />
       </button>
     </>
