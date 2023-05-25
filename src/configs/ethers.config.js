@@ -9,4 +9,4 @@ export const provider = ethers.getDefaultProvider(network, {
 
 export const signer = provider.getNetwork();
 
-console.log(provider.getNetwork("homestead"));
+// console.log(provider.getNetwork("homestead"));
